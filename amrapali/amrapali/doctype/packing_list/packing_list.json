@@ -1,0 +1,163 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-09-19 11:52:28.626046",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "sales_order",
+  "customer",
+  "company",
+  "column_break_icir",
+  "naming_series",
+  "date",
+  "vaulting_agent",
+  "section_break_zeua",
+  "column_break_igwk",
+  "delivered_items",
+  "amended_from",
+  "section_break_citl",
+  "total_bar_weight",
+  "column_break_mokd",
+  "total_bars",
+  "address_tab",
+  "vaulting_agent_address_name",
+  "vaulting_agent_address",
+  "column_break_rgja"
+ ],
+ "fields": [
+  {
+   "fieldname": "column_break_icir",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "\nPR-PAC-.YYYY.-\nDN-PAC-.YYYY.-"
+  },
+  {
+   "fieldname": "section_break_zeua",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_igwk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "fieldname": "delivered_items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Packing Delivery Items"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Packing List",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "section_break_citl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_bar_weight",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Total Weight"
+  },
+  {
+   "fieldname": "total_bars",
+   "fieldtype": "Data",
+   "label": "Total Bars"
+  },
+  {
+   "fieldname": "column_break_mokd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "sales_order.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "vaulting_agent",
+   "fieldtype": "Link",
+   "label": "Vaulting Agent",
+   "options": "Vaulting Agent"
+  },
+  {
+   "depends_on": "vaulting_agent",
+   "fieldname": "address_tab",
+   "fieldtype": "Tab Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "vaulting_agent_address_name",
+   "fieldtype": "Link",
+   "label": "Vaulting Agent Address Name",
+   "options": "Address"
+  },
+  {
+   "fieldname": "vaulting_agent_address",
+   "fieldtype": "Small Text",
+   "label": "Vaulting Agent Address"
+  },
+  {
+   "fieldname": "column_break_rgja",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "Sales Order",
+   "options": "Sales Order"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-11-15 15:20:11.777071",
+ "modified_by": "Administrator",
+ "module": "amrapali",
+ "name": "Packing List",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

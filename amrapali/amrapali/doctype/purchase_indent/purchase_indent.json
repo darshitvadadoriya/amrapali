@@ -1,0 +1,149 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-11-12 15:39:04.180122",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "supplier",
+  "vaulting_agent",
+  "company",
+  "column_break_uekg",
+  "status",
+  "date",
+  "section_break_ckly",
+  "items",
+  "address_tab",
+  "supplier_address_name",
+  "supplier_address",
+  "column_break_hqeh",
+  "terms_tab",
+  "terms",
+  "terms_and_consition"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_uekg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier",
+   "options": "Supplier",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_ckly",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Purchase Indent Item"
+  },
+  {
+   "default": "INDENT-PI-.YYYY.-",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "INDENT-PI-.YYYY.-"
+  },
+  {
+   "fieldname": "terms_tab",
+   "fieldtype": "Tab Break",
+   "label": "Indent Template"
+  },
+  {
+   "fieldname": "terms",
+   "fieldtype": "Link",
+   "label": "Indent Template",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fetch_from": "terms.terms",
+   "fetch_if_empty": 1,
+   "fieldname": "terms_and_consition",
+   "fieldtype": "Text Editor",
+   "label": "Preview Indent Template"
+  },
+  {
+   "depends_on": "supplier",
+   "fieldname": "address_tab",
+   "fieldtype": "Tab Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "supplier_address_name",
+   "fieldtype": "Link",
+   "label": "Supplier Address Name",
+   "options": "Address"
+  },
+  {
+   "fieldname": "supplier_address",
+   "fieldtype": "Small Text",
+   "label": "Supplier Address"
+  },
+  {
+   "fieldname": "column_break_hqeh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vaulting_agent",
+   "fieldtype": "Link",
+   "label": "Vaulting Agent",
+   "options": "Vaulting Agent",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nPending\nPartly Complete\nCompleted"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-15 11:20:45.126769",
+ "modified_by": "Administrator",
+ "module": "amrapali",
+ "name": "Purchase Indent",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

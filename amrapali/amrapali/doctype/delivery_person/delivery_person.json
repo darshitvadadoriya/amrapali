@@ -1,0 +1,140 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-14 18:06:39.922386",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "designation",
+  "column_break_bggs",
+  "pan_card",
+  "addhar_card",
+  "driving_licence",
+  "election_card",
+  "documents_section",
+  "pan_document",
+  "driving_licence_doc",
+  "election_card_doc",
+  "column_break_ypkw",
+  "addhar_card_front_doc",
+  "addhar_card_back_doc",
+  "column_break_xufl",
+  "speciman_signature",
+  "photograph"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Select",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "column_break_bggs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pan_card",
+   "fieldtype": "Data",
+   "label": "Pan Card"
+  },
+  {
+   "fieldname": "addhar_card",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Addhar Card",
+   "reqd": 1
+  },
+  {
+   "fieldname": "driving_licence",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Driving Licence",
+   "reqd": 1
+  },
+  {
+   "fieldname": "election_card",
+   "fieldtype": "Data",
+   "label": "Election Card"
+  },
+  {
+   "fieldname": "documents_section",
+   "fieldtype": "Section Break",
+   "label": "Documents"
+  },
+  {
+   "fieldname": "pan_document",
+   "fieldtype": "Attach",
+   "label": "Pan Document"
+  },
+  {
+   "fieldname": "driving_licence_doc",
+   "fieldtype": "Attach",
+   "label": "Driving Licence Doc"
+  },
+  {
+   "fieldname": "election_card_doc",
+   "fieldtype": "Attach",
+   "label": "Election Card Doc"
+  },
+  {
+   "fieldname": "column_break_ypkw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "addhar_card_front_doc",
+   "fieldtype": "Attach",
+   "label": "Addhar Card Front Doc"
+  },
+  {
+   "fieldname": "addhar_card_back_doc",
+   "fieldtype": "Attach",
+   "label": "Addhar Card Back Doc"
+  },
+  {
+   "fieldname": "speciman_signature",
+   "fieldtype": "Attach",
+   "label": "Speciman Signature"
+  },
+  {
+   "fieldname": "photograph",
+   "fieldtype": "Attach",
+   "label": "Photograph"
+  },
+  {
+   "fieldname": "column_break_xufl",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-14 18:13:48.227808",
+ "modified_by": "Administrator",
+ "module": "amrapali",
+ "name": "Delivery Person",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

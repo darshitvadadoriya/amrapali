@@ -1,0 +1,174 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2024-11-14 17:48:46.099165",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "use_this_details_to_agreement_form",
+  "section_break_hrsw",
+  "details_as_per",
+  "name1",
+  "title",
+  "column_break_cfqm",
+  "type",
+  "mobile_no",
+  "email_id",
+  "column_break_mhig",
+  "addhar_card",
+  "pan_card",
+  "address_section",
+  "proprietor_person_address",
+  "documents_section",
+  "pan_document",
+  "photographs",
+  "column_break_qqhj",
+  "addhar_card_front_doc",
+  "addhar_card_back_doc"
+ ],
+ "fields": [
+  {
+   "fieldname": "details_as_per",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Details As Per",
+   "options": "\nAddhar Card\nPan Card",
+   "reqd": 1
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_cfqm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "\nDirectors\nPartners\nProprietor Details",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mobile_no",
+   "fieldtype": "Data",
+   "label": "Mobile No",
+   "unique": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Email Id",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_mhig",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "addhar_card",
+   "fieldtype": "Data",
+   "label": "Addhar Card ",
+   "reqd": 1
+  },
+  {
+   "fieldname": "pan_card",
+   "fieldtype": "Data",
+   "label": "Pan Card",
+   "reqd": 1
+  },
+  {
+   "fieldname": "documents_section",
+   "fieldtype": "Section Break",
+   "label": "Documents"
+  },
+  {
+   "fieldname": "pan_document",
+   "fieldtype": "Attach",
+   "label": "Pan Document"
+  },
+  {
+   "fieldname": "photographs",
+   "fieldtype": "Attach",
+   "label": "Photographs",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_qqhj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "addhar_card_front_doc",
+   "fieldtype": "Attach Image",
+   "label": "Addhar Card Front Doc",
+   "reqd": 1
+  },
+  {
+   "fieldname": "addhar_card_back_doc",
+   "fieldtype": "Attach",
+   "label": "Addhar Card Back Doc",
+   "reqd": 1
+  },
+  {
+   "fieldname": "address_section",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "proprietor_person_address",
+   "fieldtype": "Link",
+   "label": "Proprietor Person Address",
+   "options": "Address",
+   "reqd": 1
+  },
+  {
+   "default": "mobile_no",
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "unique": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "use_this_details_to_agreement_form",
+   "fieldtype": "Check",
+   "label": "Use this details to Agreement Form"
+  },
+  {
+   "fieldname": "section_break_hrsw",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-14 18:34:44.913658",
+ "modified_by": "Administrator",
+ "module": "amrapali",
+ "name": "Proprietor Person",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

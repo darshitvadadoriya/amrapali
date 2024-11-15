@@ -1,0 +1,65 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-14 18:31:07.349092",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "authorized_person",
+  "designation",
+  "column_break_yvoh",
+  "email_id",
+  "mobile_no"
+ ],
+ "fields": [
+  {
+   "fieldname": "authorized_person",
+   "fieldtype": "Data",
+   "label": "Authorized Person/Principle Officer Name"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "column_break_yvoh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email Id"
+  },
+  {
+   "fieldname": "mobile_no",
+   "fieldtype": "Data",
+   "label": "Mobile No"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-14 18:33:23.699684",
+ "modified_by": "Administrator",
+ "module": "amrapali",
+ "name": "Authority Person",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
