@@ -1,28 +1,74 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:vaulting_agent_name",
+ "autoname": "format:{vaulting_agent_name}",
  "creation": "2024-11-12 16:22:23.293894",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "vaulting_agent_name"
+  "vaulting_agent_name",
+  "column_break_gbzk",
+  "mobile_no",
+  "email_id",
+  "section_break_bbpw",
+  "address",
+  "column_break_mqav",
+  "vaulting_agent_address"
  ],
  "fields": [
   {
    "fieldname": "vaulting_agent_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Vaulting Agent Name",
+   "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "column_break_gbzk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mobile_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Mobile No",
+   "reqd": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Email ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_bbpw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Link",
+   "label": "Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "column_break_mqav",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vaulting_agent_address",
+   "fieldtype": "Small Text",
+   "label": "Vaulting Agent Address"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-12 16:22:51.367183",
+ "modified": "2024-11-18 18:37:08.904971",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Vaulting Agent",
- "naming_rule": "By fieldname",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

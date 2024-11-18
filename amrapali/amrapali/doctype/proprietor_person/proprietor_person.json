@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:title",
+ "autoname": "format:{proprietor_person_name}-{mobile_no}",
  "creation": "2024-11-14 17:48:46.099165",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -9,7 +9,7 @@
   "use_this_details_to_agreement_form",
   "section_break_hrsw",
   "details_as_per",
-  "name1",
+  "proprietor_person_name",
   "title",
   "column_break_cfqm",
   "type",
@@ -37,13 +37,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "name1",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Name",
-   "reqd": 1
-  },
-  {
    "fieldname": "column_break_cfqm",
    "fieldtype": "Column Break"
   },
@@ -59,6 +52,7 @@
    "fieldname": "mobile_no",
    "fieldtype": "Data",
    "label": "Mobile No",
+   "reqd": 1,
    "unique": 1
   },
   {
@@ -144,15 +138,22 @@
   {
    "fieldname": "section_break_hrsw",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "proprietor_person_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Proprietor Person Name",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-14 18:34:44.913658",
+ "modified": "2024-11-18 12:56:10.970497",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Proprietor Person",
- "naming_rule": "By fieldname",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

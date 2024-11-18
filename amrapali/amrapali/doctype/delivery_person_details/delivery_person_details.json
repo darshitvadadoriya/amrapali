@@ -1,29 +1,29 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2024-11-14 19:14:34.694890",
+ "creation": "2024-11-18 12:26:23.012821",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "authorized_person_details"
+  "delivery_person"
  ],
  "fields": [
   {
-   "fieldname": "authorized_person_details",
+   "fieldname": "delivery_person",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Authorized Person Details",
-   "options": "Authorized Person"
+   "label": "Delivery Person",
+   "options": "Delivery Person"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-11-18 12:24:29.318111",
+ "modified": "2024-11-18 12:28:04.409700",
  "modified_by": "Administrator",
  "module": "amrapali",
- "name": "Authorized Person Details",
+ "name": "Delivery Person Details",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

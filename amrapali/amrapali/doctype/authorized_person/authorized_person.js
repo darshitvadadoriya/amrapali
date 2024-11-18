@@ -1,7 +1,7 @@
 // Copyright (c) 2024, Sanskar Technolab and contributors
 // For license information, please see license.txt
 
-// frappe.ui.form.on("Authority Person", {
+// frappe.ui.form.on("Authorized Person", {
 // 	refresh(frm) {
 
 // 	},

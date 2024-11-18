@@ -1,15 +1,16 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:{delivery_person_name}-{aadhar_card}",
  "creation": "2024-11-14 18:06:39.922386",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "name1",
+  "delivery_person_name",
   "designation",
   "column_break_bggs",
   "pan_card",
-  "addhar_card",
+  "aadhar_card",
   "driving_licence",
   "election_card",
   "documents_section",
@@ -25,16 +26,10 @@
  ],
  "fields": [
   {
-   "fieldname": "name1",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Name",
-   "reqd": 1
-  },
-  {
    "fieldname": "designation",
-   "fieldtype": "Select",
-   "label": "Designation"
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
   },
   {
    "fieldname": "column_break_bggs",
@@ -44,13 +39,6 @@
    "fieldname": "pan_card",
    "fieldtype": "Data",
    "label": "Pan Card"
-  },
-  {
-   "fieldname": "addhar_card",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Addhar Card",
-   "reqd": 1
   },
   {
    "fieldname": "driving_licence",
@@ -77,7 +65,8 @@
   {
    "fieldname": "driving_licence_doc",
    "fieldtype": "Attach",
-   "label": "Driving Licence Doc"
+   "label": "Driving Licence Doc",
+   "reqd": 1
   },
   {
    "fieldname": "election_card_doc",
@@ -91,12 +80,14 @@
   {
    "fieldname": "addhar_card_front_doc",
    "fieldtype": "Attach",
-   "label": "Addhar Card Front Doc"
+   "label": "Addhar Card Front Doc",
+   "reqd": 1
   },
   {
    "fieldname": "addhar_card_back_doc",
    "fieldtype": "Attach",
-   "label": "Addhar Card Back Doc"
+   "label": "Addhar Card Back Doc",
+   "reqd": 1
   },
   {
    "fieldname": "speciman_signature",
@@ -111,14 +102,29 @@
   {
    "fieldname": "column_break_xufl",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "delivery_person_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Deliver Person Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "aadhar_card",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Aadhar Card",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-14 18:13:48.227808",
+ "modified": "2024-11-18 12:48:54.370107",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Delivery Person",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

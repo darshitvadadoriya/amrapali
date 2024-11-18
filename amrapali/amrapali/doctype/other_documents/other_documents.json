@@ -1,0 +1,43 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-18 10:49:19.374453",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "other_document",
+  "column_break_irnu",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "other_document",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "Other Document"
+  },
+  {
+   "fieldname": "column_break_irnu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Description"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-11-18 10:54:38.499255",
+ "modified_by": "Administrator",
+ "module": "amrapali",
+ "name": "Other Documents",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

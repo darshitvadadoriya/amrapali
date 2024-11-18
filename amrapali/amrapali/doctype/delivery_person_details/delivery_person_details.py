@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class AuthorityPerson(Document):
+class DeliveryPersonDetails(Document):
 	pass

@@ -1,7 +1,8 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2024-11-14 18:31:07.349092",
+ "autoname": "format:{authorized_person}-{mobile_no}",
+ "creation": "2024-11-18 12:23:47.478002",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -15,13 +16,17 @@
   {
    "fieldname": "authorized_person",
    "fieldtype": "Data",
-   "label": "Authorized Person/Principle Officer Name"
+   "in_list_view": 1,
+   "label": "Authorized Person/Principle Officer Name",
+   "reqd": 1
   },
   {
    "fieldname": "designation",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Designation",
-   "options": "Designation"
+   "options": "Designation",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_yvoh",
@@ -30,20 +35,25 @@
   {
    "fieldname": "email_id",
    "fieldtype": "Data",
-   "label": "Email Id"
+   "in_list_view": 1,
+   "label": "Email Id",
+   "reqd": 1
   },
   {
    "fieldname": "mobile_no",
    "fieldtype": "Data",
-   "label": "Mobile No"
+   "in_list_view": 1,
+   "label": "Mobile No",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-14 18:33:23.699684",
+ "modified": "2024-11-18 13:00:16.151473",
  "modified_by": "Administrator",
  "module": "amrapali",
- "name": "Authority Person",
+ "name": "Authorized Person",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

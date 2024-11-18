@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestAuthorityPerson(FrappeTestCase):
+class TestAuthorizedPerson(FrappeTestCase):
 	pass
