@@ -1,0 +1,102 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-20 16:16:06.417479",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_pcij",
+  "tds_category",
+  "company",
+  "column_break_gueu",
+  "tds_rate",
+  "get_sales_invoice",
+  "section_break_spbm",
+  "invoice_details",
+  "diduct_tds",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_pcij",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "TDS Diduction",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "tds_category",
+   "fieldtype": "Link",
+   "label": "TDS Category",
+   "options": "Tax Withholding Category"
+  },
+  {
+   "fieldname": "tds_rate",
+   "fieldtype": "Float",
+   "label": "TDS Rate"
+  },
+  {
+   "fieldname": "column_break_gueu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_spbm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "get_sales_invoice",
+   "fieldtype": "Button",
+   "label": "Get Sales Invoice"
+  },
+  {
+   "fieldname": "invoice_details",
+   "fieldtype": "Table",
+   "label": "Invoice Details",
+   "options": "TDS Diduction Invoices"
+  },
+  {
+   "fieldname": "diduct_tds",
+   "fieldtype": "Button",
+   "label": "Diduct TDS"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-11-20 17:12:05.791551",
+ "modified_by": "Administrator",
+ "module": "amrapali",
+ "name": "TDS Diduction",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

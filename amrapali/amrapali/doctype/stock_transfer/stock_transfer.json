@@ -7,15 +7,14 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "in_out_ward",
   "indent_reference_no",
   "custom_duty",
   "company",
   "column_break_oyxc",
   "posting_date",
   "by_air__sea",
-  "branch",
-  "warehouse",
+  "source_warehouse",
+  "destination_warehouse",
   "column_break_qxed",
   "air_way_bill_no",
   "remarks",
@@ -53,13 +52,6 @@
    "fieldname": "remarks",
    "fieldtype": "Small Text",
    "label": "Remarks"
-  },
-  {
-   "fieldname": "in_out_ward",
-   "fieldtype": "Select",
-   "label": "In / Out Ward",
-   "options": "\nIn Ward\nOut Ward",
-   "reqd": 1
   },
   {
    "fieldname": "custom_duty",
@@ -111,16 +103,16 @@
    "search_index": 1
   },
   {
-   "fieldname": "branch",
+   "fieldname": "source_warehouse",
    "fieldtype": "Link",
-   "label": "Branch",
-   "options": "Company",
+   "label": "Source Location",
+   "options": "Warehouse",
    "reqd": 1
   },
   {
-   "fieldname": "warehouse",
+   "fieldname": "destination_warehouse",
    "fieldtype": "Link",
-   "label": "Warehouse",
+   "label": "Destination Location",
    "options": "Warehouse",
    "reqd": 1
   }
@@ -128,7 +120,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-15 12:57:09.425651",
+ "modified": "2024-11-20 11:21:41.863014",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Transfer",

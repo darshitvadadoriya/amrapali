@@ -10,7 +10,8 @@
   "designation",
   "column_break_yvoh",
   "email_id",
-  "mobile_no"
+  "mobile_no",
+  "customer"
  ],
  "fields": [
   {
@@ -45,11 +46,17 @@
    "in_list_view": 1,
    "label": "Mobile No",
    "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-18 13:00:16.151473",
+ "modified": "2024-11-19 12:47:00.140627",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Authorized Person",

@@ -9,6 +9,7 @@
   "naming_series",
   "supplier",
   "vaulting_agent",
+  "indent_reference_no",
   "company",
   "column_break_uekg",
   "status",
@@ -118,12 +119,17 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "\nPending\nPartly Complete\nCompleted"
+   "options": "\nOpen\nPartly Complete\nCompleted"
+  },
+  {
+   "fieldname": "indent_reference_no",
+   "fieldtype": "Data",
+   "label": "Indent Reference No"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-15 11:20:45.126769",
+ "modified": "2024-11-22 15:43:35.007994",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Purchase Indent",

@@ -10,7 +10,6 @@
   "section_break_hrsw",
   "details_as_per",
   "proprietor_person_name",
-  "title",
   "column_break_cfqm",
   "type",
   "mobile_no",
@@ -18,14 +17,16 @@
   "column_break_mhig",
   "addhar_card",
   "pan_card",
-  "address_section",
-  "proprietor_person_address",
   "documents_section",
   "pan_document",
   "photographs",
   "column_break_qqhj",
   "addhar_card_front_doc",
-  "addhar_card_back_doc"
+  "addhar_card_back_doc",
+  "address_section",
+  "proprietor_person_address",
+  "column_break_ywxe",
+  "proprietor_person_address_details"
  ],
  "fields": [
   {
@@ -52,8 +53,7 @@
    "fieldname": "mobile_no",
    "fieldtype": "Data",
    "label": "Mobile No",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "fieldname": "email_id",
@@ -123,13 +123,6 @@
    "reqd": 1
   },
   {
-   "default": "mobile_no",
-   "fieldname": "title",
-   "fieldtype": "Data",
-   "label": "Title",
-   "unique": 1
-  },
-  {
    "default": "0",
    "fieldname": "use_this_details_to_agreement_form",
    "fieldtype": "Check",
@@ -145,11 +138,20 @@
    "in_list_view": 1,
    "label": "Proprietor Person Name",
    "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ywxe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "proprietor_person_address_details",
+   "fieldtype": "Small Text",
+   "label": "Proprietor Person Address Details"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-18 12:56:10.970497",
+ "modified": "2024-11-19 14:29:00.263833",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Proprietor Person",

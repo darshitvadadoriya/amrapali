@@ -8,6 +8,7 @@
  "field_order": [
   "delivery_person_name",
   "designation",
+  "customer",
   "column_break_bggs",
   "pan_card",
   "aadhar_card",
@@ -116,11 +117,17 @@
    "in_list_view": 1,
    "label": "Aadhar Card",
    "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-18 12:48:54.370107",
+ "modified": "2024-11-19 12:58:35.605944",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Delivery Person",
