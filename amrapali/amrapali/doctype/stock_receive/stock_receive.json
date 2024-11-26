@@ -2,13 +2,12 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2024-11-12 16:46:10.785256",
+ "creation": "2024-11-25 12:16:04.501426",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "inout_ward",
-  "in_ward",
+  "stock_issue",
   "custom_duty",
   "company",
   "column_break_oyxc",
@@ -20,7 +19,10 @@
   "remarks",
   "section_break_jjqg",
   "items",
-  "amended_from"
+  "amended_from",
+  "section_break_hzfd",
+  "total_quantity",
+  "column_break_tjtd"
  ],
  "fields": [
   {
@@ -29,6 +31,14 @@
    "hidden": 1,
    "label": "Series",
    "options": "STOCK-TS-.YYYY.-"
+  },
+  {
+   "fetch_from": "in_ward.custom_duty",
+   "fieldname": "custom_duty",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Custom Duty",
+   "reqd": 1
   },
   {
    "fieldname": "company",
@@ -49,23 +59,7 @@
    "reqd": 1
   },
   {
-   "fieldname": "remarks",
-   "fieldtype": "Small Text",
-   "label": "Remarks"
-  },
-  {
-   "fieldname": "custom_duty",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Custom Duty",
-   "reqd": 1
-  },
-  {
-   "fieldname": "air_way_bill_no",
-   "fieldtype": "Data",
-   "label": "Air Way Bill NO"
-  },
-  {
+   "fetch_from": "in_ward.by_air__sea",
    "fieldname": "by_air__sea",
    "fieldtype": "Select",
    "label": "By Air / Sea",
@@ -74,6 +68,18 @@
   {
    "fieldname": "column_break_qxed",
    "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "in_ward.air_way_bill_no",
+   "fieldname": "air_way_bill_no",
+   "fieldtype": "Data",
+   "label": "Air Way Bill NO"
+  },
+  {
+   "fetch_from": "in_ward.remarks",
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
   },
   {
    "fieldname": "section_break_jjqg",
@@ -96,33 +102,49 @@
    "search_index": 1
   },
   {
-   "fieldname": "inout_ward",
-   "fieldtype": "Select",
-   "label": "In/Out Ward",
-   "options": "In Ward\nOut Ward"
-  },
-  {
-   "fieldname": "in_ward",
+   "fieldname": "amended_from",
    "fieldtype": "Link",
-   "label": "In Ward",
-   "options": "Purchase InWard",
-   "reqd": 1
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stock Transfer",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   },
   {
-   "depends_on": "eval:doc.inoutward == \"In Ward\"",
    "fieldname": "location",
    "fieldtype": "Link",
    "label": "Location",
    "options": "Warehouse"
+  },
+  {
+   "fieldname": "stock_issue",
+   "fieldtype": "Link",
+   "label": "Stock Issue",
+   "options": "Stock Issue",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_hzfd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity"
+  },
+  {
+   "fieldname": "column_break_tjtd",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-25 12:18:42.477714",
+ "modified": "2024-11-25 18:58:07.109270",
  "modified_by": "Administrator",
  "module": "amrapali",
- "name": "Stock Transfer",
+ "name": "Stock Receive",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [

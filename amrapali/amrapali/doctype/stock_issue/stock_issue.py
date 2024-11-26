@@ -5,11 +5,11 @@ import frappe
 from frappe.model.document import Document
 
 
-class PurchaseInWard(Document):
+class StockIssue(Document):
     def on_cancel(self):
-        indent = self.purchase_indent
+        in_ward = self.in_ward
         total_qty = self.total_quantity
-        pending_quantity = frappe.db.get_value("Purchase Indent",indent,["pending_quantity","total_quantity"],as_dict=1)
+        pending_quantity = frappe.db.get_value("Purchase InWard",in_ward,["pending_quantity","total_quantity"],as_dict=1)
     
         status = "Open"
         if pending_quantity.pending_quantity == 0:
@@ -18,6 +18,4 @@ class PurchaseInWard(Document):
             status = "Open"
         total_pending_qty = total_qty + pending_quantity.pending_quantity
         
-        frappe.db.set_value("Purchase Indent",indent,{"pending_quantity":total_pending_qty,"status":status})
-    
-     
+        frappe.db.set_value("Purchase InWard",in_ward,{"pending_quantity":total_pending_qty,"status":status})

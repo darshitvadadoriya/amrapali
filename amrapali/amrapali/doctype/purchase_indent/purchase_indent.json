@@ -9,17 +9,14 @@
   "naming_series",
   "supplier",
   "vaulting_agent",
-  "indent_reference_no",
   "company",
   "column_break_uekg",
   "status",
   "date",
+  "pending_quantity",
   "section_break_ckly",
   "items",
-  "address_tab",
-  "supplier_address_name",
-  "supplier_address",
-  "column_break_hqeh",
+  "total_quantity",
   "terms_tab",
   "terms",
   "terms_and_consition"
@@ -88,27 +85,6 @@
    "label": "Preview Indent Template"
   },
   {
-   "depends_on": "supplier",
-   "fieldname": "address_tab",
-   "fieldtype": "Tab Break",
-   "label": "Address"
-  },
-  {
-   "fieldname": "supplier_address_name",
-   "fieldtype": "Link",
-   "label": "Supplier Address Name",
-   "options": "Address"
-  },
-  {
-   "fieldname": "supplier_address",
-   "fieldtype": "Small Text",
-   "label": "Supplier Address"
-  },
-  {
-   "fieldname": "column_break_hqeh",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "vaulting_agent",
    "fieldtype": "Link",
    "label": "Vaulting Agent",
@@ -116,20 +92,28 @@
    "reqd": 1
   },
   {
+   "default": "Open",
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
    "options": "\nOpen\nPartly Complete\nCompleted"
   },
   {
-   "fieldname": "indent_reference_no",
-   "fieldtype": "Data",
-   "label": "Indent Reference No"
+   "default": "0",
+   "fieldname": "pending_quantity",
+   "fieldtype": "Float",
+   "label": "Pending Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-22 15:43:35.007994",
+ "modified": "2024-11-25 13:59:32.794715",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Purchase Indent",

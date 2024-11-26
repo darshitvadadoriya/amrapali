@@ -10,11 +10,17 @@
   "purchase_indent",
   "supplier",
   "column_break_hyuj",
+  "status",
   "date",
-  "vaultin_agent",
+  "vaulting_agent",
   "company",
   "section_break_jslf",
-  "items"
+  "items",
+  "amended_from",
+  "section_break_hgdw",
+  "total_quantity",
+  "column_break_tngn",
+  "pending_quantity"
  ],
  "fields": [
   {
@@ -22,6 +28,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Purchase Indent",
+   "link_filters": "[[\"Purchase Indent\",\"status\",\"!=\",\"Completed\"]]",
    "options": "Purchase Indent",
    "reqd": 1
   },
@@ -35,13 +42,6 @@
   {
    "fieldname": "column_break_hyuj",
    "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "purchase_indent.vaulting_agent",
-   "fieldname": "vaultin_agent",
-   "fieldtype": "Link",
-   "label": "Vaultin Agent",
-   "options": "Vaulting Agent"
   },
   {
    "fieldname": "company",
@@ -73,11 +73,60 @@
    "fieldtype": "Date",
    "label": "Date",
    "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Open",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nOpen\nPartly Complete\nCompleted"
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Purchase InWard",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "purchase_indent.vaulting_agent",
+   "fieldname": "vaulting_agent",
+   "fieldtype": "Link",
+   "label": "Vaulting Agent",
+   "options": "Vaulting Agent"
+  },
+  {
+   "fieldname": "section_break_hgdw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_tngn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "pending_quantity",
+   "fieldtype": "Float",
+   "label": "Pending Quantity",
+   "precision": "2"
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2024-11-15 11:53:37.824748",
+ "modified": "2024-11-25 17:51:16.973789",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Purchase InWard",
