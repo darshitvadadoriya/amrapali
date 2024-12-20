@@ -8,6 +8,7 @@
  "field_order": [
   "item_code",
   "quantity",
+  "custom_duty",
   "premium",
   "column_break_mqjc",
   "item_name",
@@ -60,12 +61,19 @@
   {
    "fieldname": "column_break_mqjc",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "custom_duty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Custom Duty",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-11-15 12:42:52.048613",
+ "modified": "2024-12-02 12:01:59.612306",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Transfer Item",

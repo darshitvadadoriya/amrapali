@@ -1,0 +1,186 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-12-02 10:06:39.762147",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "purchase_indent",
+  "supplier",
+  "by_air__sea",
+  "air_way_bill_no",
+  "column_break_hyuj",
+  "status",
+  "date",
+  "vaulting_agent",
+  "company",
+  "column_break_ylln",
+  "remarks",
+  "section_break_jslf",
+  "items",
+  "section_break_hgdw",
+  "total_quantity",
+  "column_break_tngn",
+  "pending_quantity",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "CLEARANCE-SC-.YYYY.-"
+  },
+  {
+   "fieldname": "purchase_indent",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Purchase Indent",
+   "link_filters": "[[\"Purchase Indent\",\"status\",\"!=\",\"Completed\"]]",
+   "options": "Purchase Indent",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "purchase_indent.supplier",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "column_break_hyuj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Open",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nOpen\nPartly Complete\nCompleted"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "purchase_indent.vaulting_agent",
+   "fieldname": "vaulting_agent",
+   "fieldtype": "Link",
+   "label": "Vaulting Agent",
+   "options": "Vaulting Agent"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_jslf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Purchase InWard Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stock Clearance",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "section_break_hgdw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_tngn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "pending_quantity",
+   "fieldtype": "Float",
+   "label": "Pending Quantity",
+   "precision": "2"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stock Clearance",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "by_air__sea",
+   "fieldtype": "Select",
+   "label": "By Air / Sea",
+   "options": "\nAir\nSea"
+  },
+  {
+   "fieldname": "air_way_bill_no",
+   "fieldtype": "Data",
+   "label": "Air Way Bill NO"
+  },
+  {
+   "fieldname": "column_break_ylln",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-12-03 15:50:58.842793",
+ "modified_by": "Administrator",
+ "module": "amrapali",
+ "name": "Stock Clearance",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

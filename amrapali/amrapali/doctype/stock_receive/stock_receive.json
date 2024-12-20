@@ -8,7 +8,7 @@
  "field_order": [
   "naming_series",
   "stock_issue",
-  "custom_duty",
+  "purchase_indent",
   "company",
   "column_break_oyxc",
   "posting_date",
@@ -19,10 +19,10 @@
   "remarks",
   "section_break_jjqg",
   "items",
-  "amended_from",
   "section_break_hzfd",
   "total_quantity",
-  "column_break_tjtd"
+  "column_break_tjtd",
+  "amended_from"
  ],
  "fields": [
   {
@@ -30,19 +30,12 @@
    "fieldtype": "Select",
    "hidden": 1,
    "label": "Series",
-   "options": "STOCK-TS-.YYYY.-"
-  },
-  {
-   "fetch_from": "in_ward.custom_duty",
-   "fieldname": "custom_duty",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Custom Duty",
-   "reqd": 1
+   "options": "RECEIVE-SR-.YYYY.-"
   },
   {
    "fieldname": "company",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Company",
    "options": "Company",
    "reqd": 1
@@ -55,6 +48,7 @@
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Posting Date",
    "reqd": 1
   },
@@ -120,6 +114,7 @@
   {
    "fieldname": "stock_issue",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Stock Issue",
    "options": "Stock Issue",
    "reqd": 1
@@ -136,12 +131,20 @@
   {
    "fieldname": "column_break_tjtd",
    "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "stock_issue.purchase_indent",
+   "fieldname": "purchase_indent",
+   "fieldtype": "Link",
+   "label": "Purchase Indent",
+   "options": "Purchase Indent",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-25 18:58:07.109270",
+ "modified": "2024-12-04 14:18:50.834078",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Receive",

@@ -50,6 +50,13 @@ def get_tds_details(tax_category_name):
 
 @frappe.whitelist()
 def create_journal_entry(customer_name, tds_value, sales_invoice,company,customer_account,company_account,outstanding_amount):
+    print(customer_name)
+    print(tds_value)
+    print(sales_invoice)
+    print(company)
+    print(customer_account)
+    print(company_account)
+    print(outstanding_amount)
     try:
 
         if outstanding_amount == "0":
@@ -76,8 +83,8 @@ def create_journal_entry(customer_name, tds_value, sales_invoice,company,custome
                     "credit": flt(tds_value),
                     "account_currency": "INR",
                     "is_advance":"Yes",
-                    "reference_type":"Sales Invoice",
-                    "reference_name":sales_invoice
+                    # "reference_type":"Sales Invoice",
+                    # "reference_name":sales_invoice
                 },
             ],
             "custom_sales_invoice": sales_invoice,

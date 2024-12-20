@@ -4,18 +4,8 @@
 frappe.ui.form.on("Purchase Indent", {
 	refresh(frm) {
 
-        // exchange rate
-        frappe.call({
-            method: "erpnext.setup.utils.get_exchange_rate",
-            args: {
-              from_currency: "USD",
-              to_currency: "INR",
-            },
-            callback: function (r) {
-                console.log(r);
-            }
-          });
-
+     
+        set_email_recepiants(frm)
 
           
           frm.fields_dict.items.grid.after_rows_rendered = function() {
@@ -33,7 +23,7 @@ frappe.ui.form.on("Purchase Indent", {
 
        if(frm.doc.status != "Completed")
        {
-            frm.add_custom_button("Create Inward", function () {
+            frm.add_custom_button("Create Stock Clearance", function () {
                 // Create a new 'Purchase InWard' document
                 let item_table = frm.doc.items.map(row => {
                     return {
@@ -47,14 +37,15 @@ frappe.ui.form.on("Purchase Indent", {
                     };
                 });
 
-                frappe.new_doc('Purchase InWard', {
+                frappe.new_doc('Stock Clearance', {
                     purchase_indent: frm.doc.name,
                     supplier: frm.doc.supplier,
                     vaulting_agent: frm.doc.vaulting_agent
                 }).then(function(){
-                
+                    
+                    i = 0
                         item_table.forEach(row => {
-                            
+                            console.log(i+1);
                             cur_frm.add_child("items",{
                                 item_code:row.item_code,
                                 item_name:row.item_name,
@@ -76,8 +67,18 @@ frappe.ui.form.on("Purchase Indent", {
         
         
 	},
+    terms(frm){
+        setTimeout(() => {
+            set_indent(frm)
+        }, 50);
+    },
+    refresh_template(frm){
+         var template_data = frm.doc.terms
+        frm.set_value("terms","")
+        frm.set_value("terms",template_data)
+        // set_indent(frm)
+    },
    
-    
 
 });
 
@@ -101,4 +102,85 @@ function calculate_total_quantity(frm) {
     });
 
     frm.set_value('total_quantity', total_quantity);
+}
+
+
+
+function set_indent(frm){
+      const template = frm.doc.terms_and_consition;
+    const indent_date = frm.doc.date
+    const formatted_date = frappe.datetime.str_to_user(indent_date);
+    const items = frm.doc.items
+    const today = frappe.datetime.str_to_user(frappe.datetime.nowdate())
+
+    const context = {
+        today: today, // get today dare
+        date: formatted_date,
+        name: frm.doc.name,
+        supplier: frm.doc.supplier,
+        location: items[0].location,
+        qty: items[0].quantity,
+        uom: items[0].uom,
+        premium: items[0].premium,
+        item_code:items[0].item_code,
+        custom_duty:items[0].custom_duty,
+        vaulting_agent:frm.doc.vaulting_agent,
+        shipment:items[0].shipment,
+        international_supplier:items[0].international_supplier
+
+    };
+    const rendered_html = frappe.render_template(template, context);
+    frm.set_value('terms_and_consition', rendered_html);
+    
+}
+
+
+function set_email_recepiants(frm){ 
+    $("[data-label='Email']").parent().click(function(){
+        console.log("On click Email");
+
+
+
+        // const email_dialog = new frappe.views.CommunicationComposer({
+        //     doc: {
+        //         doctype: frm.doc.doctype,
+        //         name: frm.doc.name,
+        //     },
+        //     subject: `Custom Subject for ${frm.doc.name}`,
+        //     recipients: 'darshit@sanskatechnolab.com', // Default email address from the form
+        //     message: `Hello, this is a custom message for ${frm.doc.name}.`,
+        // });
+
+        // // Set additional values in the dialog if needed
+        // email_dialog.dialog.set_value('subject', 'Your Custom Subject');
+        // email_dialog.dialog.set_value('recipients', 'example@example.com');
+        // email_dialog.dialog.set_value('content', 'Custom email content goes here.');
+
+        // // Show the dialog
+        // email_dialog.dialog.show();
+
+
+
+
+        frappe.call({
+            method:'amrapali.amrapali.doctype.purchase_indent.purchase_indent.get_supplier_emailids',
+            args:{
+                supplier:frm.doc.supplier
+            },
+            callback:function(r){
+                
+                console.log(r.message);
+                
+                data =r.message
+                const email_list = data.map(item => item.email).join(", ");
+                console.log(email_list);
+               
+                setTimeout(() => {
+                    cur_dialog.set_value("recipients","")
+                    cur_dialog.set_value("recipients",email_list)
+                }, 500);
+
+            }
+        });
+    })
 }

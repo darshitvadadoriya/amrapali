@@ -12,18 +12,18 @@ frappe.ui.form.on("Stock Receive", {
     after_save(frm){
         get_stock_issue_details(frm)
     },
-    on_submit(frm){
-        console.log("RECEIVED===============");
-        get_stock_issue_details(frm)
-        stock_issue_id = frm.doc.stock_issue;
+    // on_submit(frm){
+    //     console.log("RECEIVED===============");
+    //     get_stock_issue_details(frm)
+    //     stock_issue_id = frm.doc.stock_issue;
 
-        let pending_qty = stock_issue_pending_qty - frm.doc.total_quantity
-        // var status = (inward_pending_qty == frm.doc.total_quantity) ? "Completed" : "Partly Complete";
-        console.log("Pending Quantity=================");
-        console.log(pending_qty);
-        frappe.db.set_value("Stock Issue",stock_issue_id,"pending_quantity",pending_qty)
+    //     let pending_qty = stock_issue_pending_qty - frm.doc.total_quantity
+    //     // var status = (inward_pending_qty == frm.doc.total_quantity) ? "Completed" : "Partly Complete";
+    //     console.log("Pending Quantity=================");
+    //     console.log(pending_qty);
+    //     frappe.db.set_value("Stock Issue",stock_issue_id,"pending_quantity",pending_qty)
           
-    }
+    // }
 });
 
 

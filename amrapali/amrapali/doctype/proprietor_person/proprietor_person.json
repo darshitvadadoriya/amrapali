@@ -17,6 +17,7 @@
   "column_break_mhig",
   "addhar_card",
   "pan_card",
+  "customer",
   "documents_section",
   "pan_document",
   "photographs",
@@ -147,11 +148,17 @@
    "fieldname": "proprietor_person_address_details",
    "fieldtype": "Small Text",
    "label": "Proprietor Person Address Details"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-19 14:29:00.263833",
+ "modified": "2024-12-04 16:42:49.231563",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Proprietor Person",

@@ -44,8 +44,15 @@ app_license = "mit"
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-doctype_js = {"Sales Invoice" : "public/js/sales_invoice.js"}
-doctype_js = {"Purchase Order" : "public/js/purchase_order.js"}
+doctype_js = {"Sales Invoice" : "public/js/sales_invoice.js",
+              "Purchase Order" : "public/js/purchase_order.js",
+              "Purchase Invoice" : "public/js/purchase_invoice.js",
+              'Customer' : "public/js/customer.js",
+              'Proprietor Person' : 'public/js/proprietor_person.js',
+              'Vaulting Agent':'public/js/vaulting_agent.js',
+              'Sales Order': 'public/js/sales_order.js',
+              'Sales Order Item': 'public/js/sales_order.js'
+              }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 doctype_list_js = {"Sales Invoice" : "public/js/sales_invoice_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -150,6 +157,9 @@ doctype_list_js = {"Sales Invoice" : "public/js/sales_invoice_list.js"}
 doc_events = {
 	"Sales Invoice": {
 		"on_cancel": "amrapali.amrapali.override.sales_invoice.on_cancel",
+	},
+    "Purchase Order": {
+		"before_save": "amrapali.amrapali.override.api.purchase_order.before_save",
 	}
 }
 

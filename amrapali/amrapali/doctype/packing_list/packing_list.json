@@ -6,13 +6,20 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "sales_order",
+  "inout_ward",
+  "doctype_list",
+  "document",
   "customer",
+  "supplier",
   "company",
   "column_break_icir",
   "naming_series",
   "date",
   "vaulting_agent",
+  "indent",
+  "purchase_indent",
+  "item",
+  "get_bars",
   "section_break_zeua",
   "column_break_igwk",
   "delivered_items",
@@ -20,11 +27,7 @@
   "section_break_citl",
   "total_bar_weight",
   "column_break_mokd",
-  "total_bars",
-  "address_tab",
-  "vaulting_agent_address_name",
-  "vaulting_agent_address",
-  "column_break_rgja"
+  "total_bars"
  ],
  "fields": [
   {
@@ -83,39 +86,19 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.doctype_list == \"Delivery Note\"",
    "fetch_from": "sales_order.customer",
    "fieldname": "customer",
    "fieldtype": "Link",
    "label": "Customer",
-   "options": "Customer",
-   "reqd": 1
+   "mandatory_depends_on": "eval:doc.doctype_list == \"Delivery Note\"",
+   "options": "Customer"
   },
   {
    "fieldname": "vaulting_agent",
    "fieldtype": "Link",
    "label": "Vaulting Agent",
    "options": "Vaulting Agent"
-  },
-  {
-   "depends_on": "vaulting_agent",
-   "fieldname": "address_tab",
-   "fieldtype": "Tab Break",
-   "label": "Address"
-  },
-  {
-   "fieldname": "vaulting_agent_address_name",
-   "fieldtype": "Link",
-   "label": "Vaulting Agent Address Name",
-   "options": "Address"
-  },
-  {
-   "fieldname": "vaulting_agent_address",
-   "fieldtype": "Small Text",
-   "label": "Vaulting Agent Address"
-  },
-  {
-   "fieldname": "column_break_rgja",
-   "fieldtype": "Column Break"
   },
   {
    "default": "Today",
@@ -125,24 +108,70 @@
    "reqd": 1
   },
   {
-   "fieldname": "sales_order",
-   "fieldtype": "Link",
-   "label": "Sales Order",
-   "options": "Sales Order",
-   "reqd": 1
-  },
-  {
    "fieldname": "company",
    "fieldtype": "Link",
    "label": "Company",
    "options": "Company",
    "reqd": 1
+  },
+  {
+   "fieldname": "inout_ward",
+   "fieldtype": "Select",
+   "label": "In/Out Ward",
+   "options": "\nIn Ward\nOut Ward",
+   "reqd": 1
+  },
+  {
+   "fieldname": "doctype_list",
+   "fieldtype": "Link",
+   "label": "Doctype",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "document",
+   "fieldtype": "Dynamic Link",
+   "label": "Purchase Receipt",
+   "options": "doctype_list",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.doctype_list == \"Purchase Receipt\"",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "mandatory_depends_on": "eval:doc.doctype_list == \"Purchase Receipt\"",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "purchase_indent",
+   "fieldtype": "Table MultiSelect",
+   "label": "Purchase Indent",
+   "options": "Purchase Indent Items"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "depends_on": "eval:doc.doctype_list == \"Delivery Note\"",
+   "fieldname": "get_bars",
+   "fieldtype": "Button",
+   "label": "Get Bars"
+  },
+  {
+   "depends_on": "eval:doc.inout_ward=='In Ward'",
+   "fieldname": "indent",
+   "fieldtype": "Link",
+   "label": "Indent",
+   "options": "Purchase Indent"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-19 15:48:49.540997",
+ "modified": "2024-12-20 18:43:37.571826",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Packing List",

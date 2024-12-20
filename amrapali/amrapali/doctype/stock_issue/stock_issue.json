@@ -7,23 +7,24 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "in_ward",
-  "custom_duty",
+  "stock_clearance",
+  "purchase_indent",
   "company",
   "column_break_oyxc",
   "posting_date",
   "by_air__sea",
+  "air_way_bill_no",
   "location",
   "column_break_qxed",
-  "air_way_bill_no",
+  "status",
   "remarks",
   "section_break_jjqg",
   "items",
-  "amended_from",
   "section_break_sjwo",
   "total_quantity",
   "column_break_rves",
-  "pending_quantity"
+  "pending_quantity",
+  "amended_from"
  ],
  "fields": [
   {
@@ -31,26 +32,12 @@
    "fieldtype": "Select",
    "hidden": 1,
    "label": "Series",
-   "options": "STOCK-TS-.YYYY.-"
-  },
-  {
-   "fieldname": "in_ward",
-   "fieldtype": "Link",
-   "label": "In Ward",
-   "link_filters": "[[\"Purchase InWard\",\"status\",\"!=\",\"Completed\"]]",
-   "options": "Purchase InWard",
-   "reqd": 1
-  },
-  {
-   "fieldname": "custom_duty",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Custom Duty",
-   "reqd": 1
+   "options": "ISSUE-SI-.YYYY.-"
   },
   {
    "fieldname": "company",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Company",
    "options": "Company",
    "reqd": 1
@@ -63,6 +50,7 @@
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Posting Date",
    "reqd": 1
   },
@@ -140,12 +128,34 @@
    "fieldname": "pending_quantity",
    "fieldtype": "Float",
    "label": "Pending Quantity"
+  },
+  {
+   "fieldname": "stock_clearance",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Stock Clearance",
+   "options": "Stock Clearance",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "stock_clearance.purchase_indent",
+   "fieldname": "purchase_indent",
+   "fieldtype": "Link",
+   "label": "Purchase Indent",
+   "options": "Purchase Indent",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nMaterial Issue\nMaterial Received\nPartly Received"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-25 18:29:18.873660",
+ "modified": "2024-12-04 14:18:20.963825",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Issue",

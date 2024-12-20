@@ -13,13 +13,24 @@
   "column_break_uekg",
   "status",
   "date",
-  "pending_quantity",
   "section_break_ckly",
   "items",
+  "section_break_pjgm",
   "total_quantity",
+  "column_break_rueb",
+  "pending_quantity",
   "terms_tab",
   "terms",
-  "terms_and_consition"
+  "column_break_qjsd",
+  "refresh_template",
+  "section_break_yqrl",
+  "terms_and_consition",
+  "stock_balance_tab",
+  "stock_in",
+  "column_break_csvg",
+  "stock_out",
+  "section_break_pjkm",
+  "stock_summary"
  ],
  "fields": [
   {
@@ -102,18 +113,69 @@
    "default": "0",
    "fieldname": "pending_quantity",
    "fieldtype": "Float",
-   "label": "Pending Quantity",
-   "read_only": 1
+   "label": "Pending Quantity"
   },
   {
    "fieldname": "total_quantity",
    "fieldtype": "Float",
    "label": "Total Quantity"
+  },
+  {
+   "fieldname": "section_break_pjgm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_rueb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_qjsd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "refresh_template",
+   "fieldtype": "Button",
+   "label": "Refresh Template"
+  },
+  {
+   "fieldname": "section_break_yqrl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "stock_balance_tab",
+   "fieldtype": "Tab Break",
+   "label": "Stock Balance"
+  },
+  {
+   "fieldname": "stock_in",
+   "fieldtype": "Table",
+   "label": "Stock In",
+   "options": "Stock Balance In"
+  },
+  {
+   "fieldname": "stock_out",
+   "fieldtype": "Table",
+   "label": "Stock Out",
+   "options": "Stock Balance Out"
+  },
+  {
+   "fieldname": "column_break_csvg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_pjkm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "stock_summary",
+   "fieldtype": "Table",
+   "label": "Stock Summary",
+   "options": "Stock Summary"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-25 13:59:32.794715",
+ "modified": "2024-12-20 11:48:40.202147",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Purchase Indent",

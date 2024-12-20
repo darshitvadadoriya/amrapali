@@ -8,6 +8,7 @@
  "field_order": [
   "in_active",
   "section_break_zswd",
+  "purchase_indent",
   "bar_no",
   "item_code",
   "warehouse",
@@ -63,11 +64,17 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Weight"
+  },
+  {
+   "fieldname": "purchase_indent",
+   "fieldtype": "Link",
+   "label": "Purchase Indent",
+   "options": "Purchase Indent"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-13 11:27:39.927301",
+ "modified": "2024-12-04 10:51:17.632327",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Bar Numbers",
