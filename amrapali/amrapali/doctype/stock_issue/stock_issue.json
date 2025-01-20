@@ -51,6 +51,7 @@
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Posting Date",
    "reqd": 1
   },
@@ -65,6 +66,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.by_air__sea == 'Air'",
    "fieldname": "air_way_bill_no",
    "fieldtype": "Data",
    "label": "Air Way Bill NO"
@@ -107,13 +109,15 @@
   {
    "fieldname": "location",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Location",
    "options": "Warehouse"
   },
   {
    "fieldname": "total_quantity",
    "fieldtype": "Float",
-   "label": "Total Quantity"
+   "label": "Total Quantity",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_sjwo",
@@ -127,35 +131,41 @@
    "allow_on_submit": 1,
    "fieldname": "pending_quantity",
    "fieldtype": "Float",
-   "label": "Pending Quantity"
+   "label": "Pending Quantity",
+   "read_only": 1
   },
   {
    "fieldname": "stock_clearance",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Stock Clearance",
-   "options": "Stock Clearance",
-   "reqd": 1
+   "options": "Stock Clearance"
   },
   {
    "fetch_from": "stock_clearance.purchase_indent",
    "fieldname": "purchase_indent",
    "fieldtype": "Link",
    "label": "Purchase Indent",
+   "link_filters": "[[\"Purchase Indent\",\"status\",\"=\",\"Completed\"],[\"Purchase Indent\",\"docstatus\",\"=\",\"1\"]]",
    "options": "Purchase Indent",
    "reqd": 1
   },
   {
+   "allow_on_submit": 1,
+   "default": "Material Issue",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Status",
-   "options": "\nMaterial Issue\nMaterial Received\nPartly Received"
+   "options": "\nMaterial Issue\nMaterial Received\nPartly Received",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-04 14:18:20.963825",
+ "modified": "2025-01-18 17:16:13.433819",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Issue",

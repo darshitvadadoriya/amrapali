@@ -6,6 +6,8 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "disable",
+  "section_break_mikr",
   "vaulting_agent_name",
   "column_break_gbzk",
   "mobile_no",
@@ -60,11 +62,22 @@
    "fieldname": "vaulting_agent_address",
    "fieldtype": "Small Text",
    "label": "Vaulting Agent Address"
+  },
+  {
+   "default": "0",
+   "fieldname": "disable",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Disable"
+  },
+  {
+   "fieldname": "section_break_mikr",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-18 18:37:08.904971",
+ "modified": "2025-01-01 14:03:07.127113",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Vaulting Agent",

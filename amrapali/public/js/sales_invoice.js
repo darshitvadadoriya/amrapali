@@ -333,9 +333,42 @@ var single_invoice_amount
 // }
 
 
+// get_customer_mail() {
+//     frappe.call({
+//         method: 'frappe.client.get',
+//         args: {
+//             'doctype': 'Customer',
+//             filters: {
+//                 'name':
+//             }
+//         }
+//     })
+// }
+
 
     frappe.ui.form.on('Sales Invoice', {
+
         onload: function (frm) {
+            
+            frm.add_custom_button('Send mail', function() {
+
+                let recipient = 'malav@sanskartechnolab.com'
+                frappe.call({
+                    method: 'amrapali.amrapali.override.api.api.sendmail',
+                    args: {
+                            'recipients': recipient,
+                            'message': "Hello",
+                            'msg': 'helZZlo',
+                            'subject': 'World',
+                            'reference_doctype': frm.doc.doctype,
+                            'reference_name': frm.doc.name,
+                    },
+                    callback: (res)=> {
+                        console.log(res,'Hello')
+                    }
+                })
+            });
+
             if (frm.is_new() && frm.doc.__islocal) {
                 // Fields set to blank on duplicate form from another form
                 frm.set_value('custom_tds_applied', 0);

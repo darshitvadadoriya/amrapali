@@ -29,15 +29,17 @@
  ],
  "fields": [
   {
+   "default": "SC-.MM.-.YYYY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
-   "options": "CLEARANCE-SC-.YYYY.-"
+   "options": "SC-.MM.-.YYYY.-"
   },
   {
    "fieldname": "purchase_indent",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Purchase Indent",
    "link_filters": "[[\"Purchase Indent\",\"status\",\"!=\",\"Completed\"]]",
    "options": "Purchase Indent",
@@ -47,8 +49,11 @@
    "fetch_from": "purchase_indent.supplier",
    "fieldname": "supplier",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Supplier",
-   "options": "Supplier"
+   "options": "Supplier",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_hyuj",
@@ -59,8 +64,10 @@
    "default": "Open",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Status",
-   "options": "\nOpen\nPartly Complete\nCompleted"
+   "options": "\nOpen\nPartly Complete\nCompleted",
+   "read_only": 1
   },
   {
    "default": "Today",
@@ -74,7 +81,9 @@
    "fieldname": "vaulting_agent",
    "fieldtype": "Link",
    "label": "Vaulting Agent",
-   "options": "Vaulting Agent"
+   "link_filters": "[[\"Vaulting Agent\",\"disable\",\"=\",0]]",
+   "options": "Vaulting Agent",
+   "reqd": 1
   },
   {
    "fieldname": "company",
@@ -112,7 +121,8 @@
    "fieldname": "total_quantity",
    "fieldtype": "Float",
    "label": "Total Quantity",
-   "precision": "2"
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_tngn",
@@ -124,7 +134,8 @@
    "fieldname": "pending_quantity",
    "fieldtype": "Float",
    "label": "Pending Quantity",
-   "precision": "2"
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "amended_from",
@@ -143,6 +154,7 @@
    "options": "\nAir\nSea"
   },
   {
+   "depends_on": "eval:doc.by_air__sea == 'Air'",
    "fieldname": "air_way_bill_no",
    "fieldtype": "Data",
    "label": "Air Way Bill NO"
@@ -160,7 +172,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-03 15:50:58.842793",
+ "modified": "2025-01-18 18:08:14.619701",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Clearance",

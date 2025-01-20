@@ -26,7 +26,7 @@ app_license = "mit"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/amrapali/css/amrapali.css"
-# app_include_js = "/assets/amrapali/js/amrapali.js"
+# app_include_js = "/assets/amrapali/js/set_session_company.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/amrapali/css/amrapali.css"
@@ -51,7 +51,8 @@ doctype_js = {"Sales Invoice" : "public/js/sales_invoice.js",
               'Proprietor Person' : 'public/js/proprietor_person.js',
               'Vaulting Agent':'public/js/vaulting_agent.js',
               'Sales Order': 'public/js/sales_order.js',
-              'Sales Order Item': 'public/js/sales_order.js'
+              'Sales Order Item': 'public/js/sales_order.js',
+              'Purchase Receipt': 'public/js/purchase_receipt.js'
               }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 doctype_list_js = {"Sales Invoice" : "public/js/sales_invoice_list.js"}
@@ -160,6 +161,8 @@ doc_events = {
 	},
     "Purchase Order": {
 		"before_save": "amrapali.amrapali.override.api.purchase_order.before_save",
+    "on_submit": "amrapali.amrapali.override.api.purchase_order.on_submit",
+    "on_cancel": "amrapali.amrapali.override.api.purchase_order.on_cancel",
 	}
 }
 

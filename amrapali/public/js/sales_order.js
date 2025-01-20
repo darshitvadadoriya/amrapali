@@ -1,8 +1,11 @@
 // Event handler for 'Sales Order' doctype
 frappe.ui.form.on('Sales Order', {
+    transaction_date(frm) {
+        update_date(frm)
+    },
+
     // Triggered when the customer field is changed
     customer(frm) {
-        frappe.throw('hello'); // Simple alert to test the trigger
     },
     onload:async function(frm){
         if(frm.is_new()){
@@ -11,10 +14,37 @@ frappe.ui.form.on('Sales Order', {
              $.each(frm.doc.items || [], function(i, v) {
                  frappe.model.set_value(v.doctype, v.name, "custom_currency_exchange_rate", exchangerate)
              })
+         // Calculate two business days after today
+        update_date(frm)
         }
-         
      }
 });
+
+function update_date(frm) {
+    let transactionDate = new Date(frm.doc.transaction_date);
+         let businessDaysAdded = 0;
+ 
+         // Loop to add two business days
+         while (businessDaysAdded < 2) {
+             transactionDate.setDate(transactionDate.getDate() + 1);
+             // Check if the current day is a business day (Monday to Friday)
+             if (transactionDate.getDay() !== 0 && transactionDate.getDay() !== 6) {  // Sunday = 0, Saturday = 6
+                 businessDaysAdded += 1;
+             }
+         }
+ 
+         // Format the date as YYYY-MM-DD
+         let formattedDate = transactionDate.getFullYear() + '-' 
+                             + (transactionDate.getMonth() + 1).toString().padStart(2, '0') + '-'
+                             + transactionDate.getDate().toString().padStart(2, '0');
+ 
+         // Log the formatted date for debugging purposes
+         console.log(formattedDate);
+ 
+         // Set the delivery_date field to the calculated date
+         frm.set_value('delivery_date', formattedDate);
+        
+}
 
 frappe.ui.form.on('Sales Order Item', {
     custom_premium(frm, cdt, cdn) {
@@ -43,7 +73,8 @@ function update_rate(frm, row) {
     let custom_premium = row.custom_premium || 0;
     let custom_mcx_rate = row.custom_mcx_rate || 0;
     let custom_currency_exchange_rate = row.custom_currency_exchange_rate;
-    let rate = custom_mcx_rate + (custom_premium * custom_currency_exchange_rate);
+    let rate = (custom_mcx_rate + (custom_premium * custom_currency_exchange_rate));
+    rate *= row.custom_multiplier;
     frappe.model.set_value(row.doctype, row.name, 'rate', rate);
     frappe.model.set_value(row.doctype, row.name, 'custom_currency_exchange_rate', custom_currency_exchange_rate)
 }

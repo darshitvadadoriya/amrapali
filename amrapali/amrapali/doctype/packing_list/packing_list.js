@@ -12,7 +12,8 @@ frappe.ui.form.on("Packing List", {
         frm.get_docfield("delivered_items").allow_bulk_edit = 1; // set download and upload button for child table
     },
     refresh: function (frm) {
-        
+
+   
             frm.set_query("document", function() {
                     return {
                         "filters": {
@@ -20,13 +21,19 @@ frappe.ui.form.on("Packing List", {
                         }
                     };
             });
+
+            // hide get bars button
+            if(frm.doc.docstatus >= 1){
+                
+            }
+
     },
 
     inout_ward: function (frm) {
         var ward_value = frm.doc.inout_ward
         frm.doc.document = ""
         frm.clear_table("delivered_items"); //clear child table on change option
-        frm.clear_table("purchase_items");; //clear child table on change option
+        frm.clear_table("purchase_items"); //clear child table on change option
 
         // if ward val is inward set purchase receipt
         if (ward_value == 'In Ward') {
@@ -46,18 +53,24 @@ frappe.ui.form.on("Packing List", {
             get_used_delivery(frm) // get used delivery note list
 
 
-            
         }
 
-
-
     },
-    document: function (frm) {
+
+
+    document: async function (frm) {
+        
         var doctype = frm.doc.doctype_list
         var doc_name = frm.doc.document
+
+        
       
         if(frm.doc.doctype_list == "Delivery Note")
         {
+            if (frm.doc.doctype_list === "Delivery Note") {
+                get_purchase_indent(frm); 
+            }
+            
             frappe.db.get_value(doctype, frm.doc.document, 'customer')
             .then(r => {
                 if (r && r.message) {
@@ -75,21 +88,14 @@ frappe.ui.form.on("Packing List", {
                         frm.set_value('supplier', r.message.supplier);
                     }
                 });
+                frappe.db.get_value(doctype, frm.doc.document, 'custom_purchase_indent')
+                .then(r => {
+                    console.log(r);
+                    if (r && r.message) {
+                        frm.set_value('indent', r.message.custom_purchase_indent);
+                    }
+                });
             }
-
-
-
-            // frappe.call({
-            //     method: 'frappe.client.get_value',
-            //     args: {
-            //     doctype: frm.doc.doctype_list,
-            //     name: frm.doc.document,
-            //     fieldname: "custom_purchase_indent"
-            //     },
-            //        callback: function(r){						
-            //            console.log(r);
-            //     }
-            // });
 
 
         frappe.call({
@@ -99,20 +105,6 @@ frappe.ui.form.on("Packing List", {
                 doc_name: doc_name,
             },
             callback: function (r) {
-                // console.log(r.message.custom_purchase_indent);
-                // let indent = [r.message.custom_purchase_indent]
-                // frm.set_value("purchase_indent",indent)
-
-
-                console.log(r.message.custom_purchase_indent);
-                // let indent = Array.isArray(r.message.custom_purchase_indent) 
-                //             ? r.message.custom_purchase_indent 
-                //             : [r.message.custom_purchase_indent];
-                // console.log("test=======================================");
-                // console.log(indent);
-                let indent = ["INDENT-PI-2024-00003"]
-                frm.set_value("purchase_indent", indent);
-
 
                 item_code_lst = []
                 var child_table
@@ -142,17 +134,11 @@ frappe.ui.form.on("Packing List", {
                 frm.refresh_field(child_table);
 
 
-                // frm.set_value("total_bar_weight_from", total_weight_from_prev) //set total qty as total_weight_from_prev from prevoius doc 
-
-                // filters for child table items
-                // set_filter(frm)
             }
         })
     },
 
-    // before_save: function (frm) {
-    //     totl_bars(frm, frm.doc.delivered_items)
-    // },
+
     
     get_bars: function(frm) {
         // Get the list of purchase indent items from the current form document
@@ -226,13 +212,7 @@ frappe.ui.form.on('Packing Delivery Items', {
     net_weight: function (frm, cdt, cdn) {
         totl_bars(frm, frm.doc.delivered_items);
     },
-    // bar_no:function(frm, cdt, cdn) {
-    //     const current_item = locals[cdt][cdn];
-    //     const bar_no_value = current_item.bar_no;
-    //     console.log(bar_no_value);
-    //     get_bar_details(bar_no_value,cdt,cdn)
-    //     frm.refresh_field("delivered_items");
-    // }
+    
 })
 
 
@@ -281,3 +261,40 @@ function get_used_delivery(frm) {
         }
     })
 }
+
+function get_purchase_indent(frm) {
+
+    frappe.call({
+        method: 'frappe.client.get',
+        args: {
+            doctype: 'Delivery Note',
+            name: frm.doc.document
+        },
+        callback: function(res) {
+            frm.set_value('purchase_indent',[])
+            if (res && res.message) {
+                console.log('Delivery Note:', res.message.purchase_indent);
+                if(res.message.purchase_indent) {
+                    setTimeout(async () => {
+                        frm.set_value('purchase_indent',[{
+                            'purchase_indent_item':  res.message.purchase_indent
+                        }])
+                    }, 10);
+                }
+                
+                 // Set timeout duration in milliseconds (e.g., 1000ms = 1 second)
+                frm.refresh_field('purchase_indent')
+                // Fetch Purchase Indent Item with explicit error handlin
+            } else {
+                frappe.msgprint(__('Delivery Note not found.'));
+            }
+        },
+        error: function(err) {
+            console.error('Error fetching Delivery Note:', err);
+        }
+    });
+    
+    
+    
+}
+

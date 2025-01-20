@@ -98,12 +98,15 @@
    "fieldname": "vaulting_agent",
    "fieldtype": "Link",
    "label": "Vaulting Agent",
-   "options": "Vaulting Agent"
+   "link_filters": "[[\"Vaulting Agent\",\"disable\",\"=\",0]]",
+   "options": "Vaulting Agent",
+   "reqd": 1
   },
   {
    "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
+   "in_standard_filter": 1,
    "label": "Date",
    "reqd": 1
   },
@@ -155,7 +158,7 @@
    "options": "Item"
   },
   {
-   "depends_on": "eval:doc.doctype_list == \"Delivery Note\"",
+   "depends_on": "eval:doc.inout_ward == \"Out Ward\" && doc.docstatus < 1",
    "fieldname": "get_bars",
    "fieldtype": "Button",
    "label": "Get Bars"
@@ -171,7 +174,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-20 18:43:37.571826",
+ "modified": "2025-01-20 17:54:14.265931",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Packing List",

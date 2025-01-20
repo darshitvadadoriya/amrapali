@@ -11,7 +11,8 @@
   "quantity",
   "custom_duty",
   "record_id",
-  "record_doc"
+  "record_doc",
+  "premium"
  ],
  "fields": [
   {
@@ -28,6 +29,7 @@
    "label": "Quantity"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "custom_duty",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -36,6 +38,7 @@
   {
    "fieldname": "record_id",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Record ID",
    "read_only": 1
   },
@@ -51,12 +54,18 @@
    "in_list_view": 1,
    "label": "Item",
    "options": "Item"
+  },
+  {
+   "fieldname": "premium",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Premium"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-20 13:14:32.237745",
+ "modified": "2025-01-10 17:35:52.650426",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Balance In",

@@ -49,6 +49,7 @@
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Posting Date",
    "reqd": 1
   },
@@ -64,6 +65,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval: doc.by_air__sea == 'Air'",
    "fetch_from": "in_ward.air_way_bill_no",
    "fieldname": "air_way_bill_no",
    "fieldtype": "Data",
@@ -108,6 +110,7 @@
   {
    "fieldname": "location",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Location",
    "options": "Warehouse"
   },
@@ -126,7 +129,8 @@
   {
    "fieldname": "total_quantity",
    "fieldtype": "Float",
-   "label": "Total Quantity"
+   "label": "Total Quantity",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_tjtd",
@@ -136,6 +140,7 @@
    "fetch_from": "stock_issue.purchase_indent",
    "fieldname": "purchase_indent",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Purchase Indent",
    "options": "Purchase Indent",
    "reqd": 1
@@ -144,7 +149,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-04 14:18:50.834078",
+ "modified": "2025-01-18 17:17:22.242906",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Receive",

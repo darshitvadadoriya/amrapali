@@ -29,37 +29,28 @@ class PackingList(Document):
 						"status": "Active"
 					})
                     doc.insert()
-            # else:
-            #     error_message = ", ".join(error_lst) + " Already exists in Bar Numbers"
-            #     frappe.throw(error_message)
+            else:
+                error_message = ", ".join(error_lst) + " Already exists in Bar Numbers"
+                frappe.throw(error_message)
         
         # if doctype is delivery note
         if self.doctype_list == "Delivery Note":
             for data in self.delivered_items:
                 doc = frappe.get_doc("Bar Numbers",data.bar_no)
-                print(doc.name)
-                print(doc.status)
-                print(doc.item_code)
-                print(doc.weight)
-                print("\n\n\n\n\n\n\n\n\n\n")
                 doc.status = "Delivered"
                 doc.save()
                 
        
-        # if self.doctype_list == "Delivery Note":        
-        #     dl_doc = get_delivery_note(self.document)
-        #     mismatch_message = []
-            
-        #     for item_data in dl_doc.items:
-        #         # Assuming 'data' contains packing list info like 'item_code' and 'weight'
-        #         if item_data.qty != data.weight:
-        #             mismatch_message.append(f"Item Code: {data.item_code}, Delivery Qty: {item_data.qty}, Packing List Qty: {data.weight}")
-            
-        #     if mismatch_message:
-        #         frappe.msgprint("\n".join(mismatch_message))  # Raises error with all mismatches listed.
-                
+   
 
-
+    def on_cancel(self):
+        if self.inout_ward == 'In Ward':
+            for row in self.delivered_items:
+                frappe.delete_doc("Bar Numbers",row.bar_no)
+        
+        if self.inout_ward == 'Out Ward':
+            for row in self.delivered_items:
+                frappe.db.set_value("Bar Numbers",row.bar_no,"status","Active")
 
         
     
@@ -79,15 +70,7 @@ class PackingList(Document):
                     if data.bar_no:
                         dl_doc = get_delivery_note(self.document)
                         doc = bar_number_data(data.bar_no)
-                        # if doc.status == "Active":
-                        #     data.item_code = doc.item_code
-                        #     data.weight = doc.weight
-                        #     data.warehouse = doc.warehouse
-                        # else:
-                        #     error_message = doc.name + " - This bar number is inactive or delivered"
-                        #     frappe.throw(error_message)
-                        
-
+                      
                         if doc.status == "Active":
                             data.item_code = doc.item_code
                             data.weight = doc.weight
@@ -113,9 +96,9 @@ class PackingList(Document):
                 if row_no_lst:
                     error_message = ", ".join(row_no_lst) + " - This row have not bar numbers"
                     frappe.throw(error_message)
-                if unknown_lst:
-                    error_message = ", ".join(unknown_lst) + " - This items not match from delivery note"
-                    frappe.throw(error_message)
+                # if unknown_lst:
+                #     error_message = ", ".join(unknown_lst) + " - This items not match from delivery note"
+                #     frappe.throw(error_message)
                     
                     
             # set total qty in total quantity field
@@ -134,13 +117,6 @@ class PackingList(Document):
             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n ")
   
         
-            
-        
-            
-            
-    
-        
-
 def bar_number_data(bar_no):
         bar_number_data = frappe.get_doc("Bar Numbers",bar_no)
         return bar_number_data
@@ -171,7 +147,7 @@ def get_used_delivery():
 @frappe.whitelist()
 def get_used_purchase():
     used_purchase = []
-    purchase = frappe.get_list("Packing List",fields=["document"],filters={"inout_ward":"In Ward"})
+    purchase = frappe.get_list("Packing List",fields=["document"],filters={"inout_ward":"In Ward","docstatus": ["!=", "Cancelled"]})
     for data in purchase:
         used_purchase.append(data["document"])
     return used_purchase
@@ -180,4 +156,3 @@ def get_used_purchase():
 def get_packing_list(name):
     packing_list = frappe.get_doc("Delivery Note",name,as_dict=1)
     return packing_list
-    

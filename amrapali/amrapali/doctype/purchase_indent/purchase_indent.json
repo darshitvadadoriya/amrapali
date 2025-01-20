@@ -30,7 +30,9 @@
   "column_break_csvg",
   "stock_out",
   "section_break_pjkm",
-  "stock_summary"
+  "stock_summary",
+  "amended_from",
+  "connections_tab"
  ],
  "fields": [
   {
@@ -49,6 +51,7 @@
    "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
+   "in_standard_filter": 1,
    "label": "Date",
    "reqd": 1
   },
@@ -56,7 +59,9 @@
    "fieldname": "supplier",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Supplier",
+   "link_filters": "[[\"Supplier\",\"supplier_group\",\"=\",\"Domestic\"]]",
    "options": "Supplier",
    "reqd": 1
   },
@@ -71,13 +76,14 @@
    "options": "Purchase Indent Item"
   },
   {
-   "default": "INDENT-PI-.YYYY.-",
+   "default": "PIN-.MM.-.YYYY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
-   "options": "INDENT-PI-.YYYY.-"
+   "options": "PIN-.MM.-.YYYY.-"
   },
   {
+   "depends_on": "eval:doc.__islocal!=1",
    "fieldname": "terms_tab",
    "fieldtype": "Tab Break",
    "label": "Indent Template"
@@ -86,39 +92,50 @@
    "fieldname": "terms",
    "fieldtype": "Link",
    "label": "Indent Template",
-   "options": "Terms and Conditions"
+   "link_filters": "[[\"Indent Template\",\"disabled\",\"=\",0]]",
+   "options": "Indent Template"
   },
   {
-   "fetch_from": "terms.terms",
+   "fetch_from": "terms.indent_template",
    "fetch_if_empty": 1,
    "fieldname": "terms_and_consition",
    "fieldtype": "Text Editor",
-   "label": "Preview Indent Template"
+   "label": "Preview Indent Template",
+   "read_only_depends_on": "eval.doc.docstatus == 1"
   },
   {
    "fieldname": "vaulting_agent",
    "fieldtype": "Link",
    "label": "Vaulting Agent",
+   "link_filters": "[[\"Vaulting Agent\",\"disable\",\"=\",0]]",
    "options": "Vaulting Agent",
    "reqd": 1
   },
   {
+   "allow_on_submit": 1,
    "default": "Open",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Status",
-   "options": "\nOpen\nPartly Complete\nCompleted"
+   "options": "\nOpen\nPartly Complete\nCompleted",
+   "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "default": "0",
    "fieldname": "pending_quantity",
    "fieldtype": "Float",
-   "label": "Pending Quantity"
+   "label": "Pending Quantity",
+   "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "total_quantity",
    "fieldtype": "Float",
-   "label": "Total Quantity"
+   "label": "Total Quantity",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_pjgm",
@@ -133,6 +150,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "terms",
    "fieldname": "refresh_template",
    "fieldtype": "Button",
    "label": "Refresh Template"
@@ -142,21 +160,26 @@
    "fieldtype": "Section Break"
   },
   {
+   "depends_on": "eval:doc.__islocal!=1",
    "fieldname": "stock_balance_tab",
    "fieldtype": "Tab Break",
    "label": "Stock Balance"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "stock_in",
    "fieldtype": "Table",
    "label": "Stock In",
-   "options": "Stock Balance In"
+   "options": "Stock Balance In",
+   "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "stock_out",
    "fieldtype": "Table",
    "label": "Stock Out",
-   "options": "Stock Balance Out"
+   "options": "Stock Balance Out",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_csvg",
@@ -167,15 +190,55 @@
    "fieldtype": "Section Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "stock_summary",
    "fieldtype": "Table",
    "label": "Stock Summary",
-   "options": "Stock Summary"
+   "options": "Stock Summary",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Purchase Indent",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "connections_tab",
+   "fieldtype": "Tab Break",
+   "label": "Connections",
+   "show_dashboard": 1
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-12-20 11:48:40.202147",
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Stock Clearance",
+   "link_fieldname": "purchase_indent"
+  },
+  {
+   "link_doctype": "Stock Issue",
+   "link_fieldname": "purchase_indent"
+  },
+  {
+   "link_doctype": "Stock Receive",
+   "link_fieldname": "purchase_indent"
+  },
+  {
+   "link_doctype": "Purchase Order",
+   "link_fieldname": "custom_purchase_indent"
+  },
+  {
+   "link_doctype": "Purchase Receipt",
+   "link_fieldname": "custom_purchase_indent"
+  }
+ ],
+ "modified": "2025-01-20 16:49:12.559824",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Purchase Indent",

@@ -15,49 +15,49 @@ frappe.ui.form.on("Stock Clearance", {
     refresh(frm){
         if(frm.doc.docstatus == "1")
         {
-            frm.add_custom_button(__('Stock Issue'), function() {
+            // frm.add_custom_button(__('Stock Issue'), function() {
                 
-                // Create a new 'Stock Clearance' document
-                let item_table = frm.doc.items.map(row => {
-                    return {
-                        item_code: row.item_code, 
-                        item_name:row.item_name,
-                        item_group:row.item_group,
-                        uom:row.uom, 
-                        custom_duty:row.custom_duty,
-                        quantity: row.quantity,
-                        premium: row.premium,
+            //     // Create a new 'Stock Clearance' document
+            //     let item_table = frm.doc.items.map(row => {
+            //         return {
+            //             item_code: row.item_code, 
+            //             item_name:row.item_name,
+            //             item_group:row.item_group,
+            //             uom:row.uom, 
+            //             custom_duty:row.custom_duty,
+            //             quantity: row.quantity,
+            //             premium: row.premium,
                     
-                    };
-                });
+            //         };
+            //     });
 
-                frappe.new_doc('Stock Issue', {
-                    stock_clearance: frm.doc.name,
-                    supplier: frm.doc.supplier,
-                    vaulting_agent: frm.doc.vaulting_agent
-                }).then(function(){
+            //     frappe.new_doc('Stock Issue', {
+            //         stock_clearance: frm.doc.name,
+            //         supplier: frm.doc.supplier,
+            //         vaulting_agent: frm.doc.vaulting_agent
+            //     }).then(function(){
                 
-                        item_table.forEach(row => {
+            //             item_table.forEach(row => {
                             
-                            cur_frm.add_child("items",{
-                                item_code:row.item_code,
-                                item_name:row.item_name,
-                                item_group:row.item_group,
-                                custom_duty:row.custom_duty,
-                                uom:row.uom,
-                                quantity: row.quantity,
-                                premium:row.premium,
+            //                 cur_frm.add_child("items",{
+            //                     item_code:row.item_code,
+            //                     item_name:row.item_name,
+            //                     item_group:row.item_group,
+            //                     custom_duty:row.custom_duty,
+            //                     uom:row.uom,
+            //                     quantity: row.quantity,
+            //                     premium:row.premium,
 
-                            })
+            //                 })
                         
-                        });
+            //             });
             
-                        cur_frm.refresh_field("items")
-                })
+            //             cur_frm.refresh_field("items")
+            //     })
 
 
 
-            }, __("Create"));
+            // }, __("Create"));
         }
     },
     validate(frm){
