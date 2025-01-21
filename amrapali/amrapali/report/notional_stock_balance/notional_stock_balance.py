@@ -6,7 +6,7 @@ import frappe
 @frappe.whitelist()
 def execute(filters=None):
       
-	columns, data = ['parent','item','item_code','location', 'quantity', 'custom_duty'], []
+	columns, data = ['parent','item_code','location', 'quantity', 'custom_duty'], []
 
 	columns = [
         {
@@ -61,7 +61,7 @@ def getdata(filters):
     data = frappe.get_all(
         doctype='Stock Summary',
         filters=filters,
-        fields=['parent', 'item', 'item_code', 'location', 'quantity', 'custom_duty','premium'],
+        fields=['parent', 'item_code', 'location', 'quantity', 'custom_duty','premium'],
     )
     
     print(data)  # Log the data for debugging
