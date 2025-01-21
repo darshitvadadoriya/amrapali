@@ -10,7 +10,7 @@
  "is_standard": "Yes",
  "letter_head": "Amrapali",
  "letterhead": null,
- "modified": "2024-12-26 13:47:55.074223",
+ "modified": "2025-01-21 17:54:19.263516",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Notional Stock Balance",
@@ -22,6 +22,9 @@
  "roles": [
   {
    "role": "System Manager"
+  },
+  {
+   "role": "Purchase Master Manager"
   }
  ],
  "timeout": 0
