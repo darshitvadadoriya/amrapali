@@ -85,20 +85,13 @@ class PackingList(Document):
                 if inactive_bar_numbers:
                     error_message = ", ".join(inactive_bar_numbers) + " - These bar numbers are inactive or delivered"
                     frappe.throw(error_message)
-                    
-                        
-
-                    
-                        
-                            
+          
                                 
                     
                 if row_no_lst:
                     error_message = ", ".join(row_no_lst) + " - This row have not bar numbers"
                     frappe.throw(error_message)
-                # if unknown_lst:
-                #     error_message = ", ".join(unknown_lst) + " - This items not match from delivery note"
-                #     frappe.throw(error_message)
+            
                     
                     
             # set total qty in total quantity field
@@ -114,7 +107,6 @@ class PackingList(Document):
                 self.total_bars = max(item.idx for item in self.delivered_items)
         except Exception as e:
             print(e)
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n ")
   
         
 def bar_number_data(bar_no):

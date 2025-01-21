@@ -74,12 +74,14 @@
    "fieldname": "total_bar_weight",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Total Weight"
+   "label": "Total Weight",
+   "read_only": 1
   },
   {
    "fieldname": "total_bars",
    "fieldtype": "Data",
-   "label": "Total Bars"
+   "label": "Total Bars",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_mokd",
@@ -127,6 +129,7 @@
   {
    "fieldname": "doctype_list",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Doctype",
    "options": "DocType"
   },
@@ -146,12 +149,14 @@
    "options": "Supplier"
   },
   {
+   "depends_on": "eval:doc.inout_ward == \"Out Ward\" && doc.docstatus < 1",
    "fieldname": "purchase_indent",
    "fieldtype": "Table MultiSelect",
    "label": "Purchase Indent",
    "options": "Purchase Indent Items"
   },
   {
+   "depends_on": "eval:doc.inout_ward == \"Out Ward\" && doc.docstatus < 1",
    "fieldname": "item",
    "fieldtype": "Link",
    "label": "Item",
@@ -174,7 +179,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-20 17:54:14.265931",
+ "modified": "2025-01-21 17:43:44.313950",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Packing List",

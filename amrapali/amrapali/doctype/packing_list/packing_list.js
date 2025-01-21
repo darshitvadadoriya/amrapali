@@ -161,7 +161,6 @@ frappe.ui.form.on("Packing List", {
                 }
             },
             callback: function(r) {
-                console.log(r); // Log the response from the API call for debugging purposes
     
                 // Check if the response contains a 'message' and it is an array (indicating the data was returned successfully)
                 if (r.message && Array.isArray(r.message)) {

@@ -22,7 +22,7 @@ class StockClearance(Document):
         for data in self.items:
             row = indent.append('stock_in', {})
             row.location = data.location
-            row.custom_duty = data.custom_duty
+            row.custom_duty = data.customduty
             row.quantity = data.quantity
             row.record_id = data.name
             row.record_doc = data.parent
@@ -87,7 +87,7 @@ class StockClearance(Document):
                     "premium": data.premium  # Include premium if required
                 }
             location_data[key]["total_quantity"] += data.quantity
-            location_data[key]["total_custom_duty"] += data.custom_duty
+            location_data[key]["total_custom_duty"] += data.customduty
 
         # Initialize a set to keep track of updated location-item_code combinations
         updated_keys = set()
@@ -178,7 +178,6 @@ class StockClearance(Document):
                     'location': data.location,
                     'premium': data.premium,
                     'total_quantity': data.quantity or 0,
-                    'description': data.description,
                     'uom': data.uom,
                     'item_group': data.item_group,
                     'item_name': data.item_name
@@ -199,7 +198,7 @@ class StockClearance(Document):
             # Update hashmap with total quantities and custom duty
             if key in purchase_indent_hashmap:
                 purchase_indent_hashmap[key]['total_quantity'] += data.quantity or 0
-                purchase_indent_hashmap[key]['total_custom_duty'] += (data.custom_duty or 0) * (data.quantity or 0)
+                purchase_indent_hashmap[key]['total_custom_duty'] += (data.customduty or 0) * (data.quantity or 0)
             else:
                 purchase_indent_hashmap[key] = {
                     'item_code': data.item_code,
@@ -238,30 +237,4 @@ class StockClearance(Document):
 
 
 
-            # for row in purchase_indent.stock_summary:
-                
-
-
-            # delete record from purchase indent stock in table
-            # balance_in = frappe.db.get_all("Stock Balance In",fields=["*"], filters={"record_doc":self.name})
-
-            # frappe.throw(str(balance_in))
-
-            # for balance in balance_in:
-            #     stock_summary = frappe.db.get_value(
-            #         "Stock Summary",
-            #         {"item_code": balance.item_code, "location": balance.location, "custom_duty": balance.custom_duty},
-            #         ["name", "quantity","parent"],
-            #         as_dict=True
-            #     )
-            #     qty_of_summary = float(stock_summary.quantity) - balance.quantity
-            #     # qty_of_summary = float(stock_summary.quantity) - balance.quantity
-            #     frappe.db.set_value("Stock Summary",stock_summary.name,"quantity",qty_of_summary)
-            #     frappe.delete_doc("Stock Balance In",balance.name)
-                
-            #     # If quantity is 0 and parent is purchase_indent, delete Stock Summary row
-            #     if qty_of_summary == 0.0 and stock_summary.parent == self.purchase_indent:
-            #         frappe.delete_doc("Stock Summary", stock_summary.name) Put Case if the stock in is empty
-            
-            
-
+          

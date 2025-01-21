@@ -21,7 +21,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Item Name",
-   "options": "Item"
+   "options": "Item",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_aejr",
@@ -32,7 +33,8 @@
    "fieldname": "bar_no",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Bar No"
+   "label": "Bar No",
+   "reqd": 1
   },
   {
    "columns": 1,
@@ -48,27 +50,30 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Location",
-   "options": "Warehouse"
+   "options": "Warehouse",
+   "reqd": 1
   },
   {
    "columns": 1,
    "fieldname": "weight",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Weight(KG)"
+   "label": "Weight(KG)",
+   "reqd": 1
   },
   {
    "columns": 1,
    "fieldname": "weightoz",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Weight(oz)"
+   "label": "Weight(oz)",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-01-20 17:55:36.051304",
+ "modified": "2025-01-20 18:59:21.590708",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Packing Delivery Items",

@@ -18,40 +18,45 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Location",
-   "options": "Warehouse"
+   "options": "Warehouse",
+   "read_only": 1
   },
   {
    "allow_on_submit": 1,
    "fieldname": "quantity",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Quantity"
+   "label": "Quantity",
+   "read_only": 1
   },
   {
    "allow_on_submit": 1,
    "fieldname": "custom_duty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Custom Duty"
+   "label": "Custom Duty",
+   "read_only": 1
   },
   {
    "fieldname": "item_code",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Item",
-   "options": "Item"
+   "options": "Item",
+   "read_only": 1
   },
   {
    "fieldname": "premium",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Premium"
+   "label": "Premium",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-01-03 18:47:19.533277",
+ "modified": "2025-01-21 17:13:05.291898",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Summary",

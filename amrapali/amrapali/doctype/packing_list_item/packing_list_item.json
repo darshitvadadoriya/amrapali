@@ -6,12 +6,12 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "bar_no",
   "item_code",
   "item_name",
   "column_break_aejr",
-  "weightoz",
   "net_weight",
-  "bar_no",
+  "weightoz",
   "warehouse",
   "uom"
  ],
@@ -21,7 +21,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Item Code",
-   "options": "Item"
+   "options": "Item",
+   "reqd": 1
   },
   {
    "fetch_from": "item_code.item_name",
@@ -38,39 +39,44 @@
    "fieldname": "net_weight",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Weight(KG)"
+   "label": "Weight(KG)",
+   "reqd": 1
   },
   {
    "fieldname": "uom",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "UOM",
-   "options": "UOM"
+   "options": "UOM",
+   "reqd": 1
   },
   {
    "fieldname": "bar_no",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Bar No"
+   "label": "Bar No",
+   "reqd": 1
   },
   {
    "fieldname": "warehouse",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Warehouse",
-   "options": "Warehouse"
+   "label": "Location",
+   "options": "Warehouse",
+   "reqd": 1
   },
   {
    "fieldname": "weightoz",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Weight(oz)"
+   "label": "Weight(oz)",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-11-14 15:16:56.114286",
+ "modified": "2025-01-21 17:39:55.749723",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Packing List Item",
