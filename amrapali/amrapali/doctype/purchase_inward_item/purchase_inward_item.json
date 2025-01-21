@@ -11,6 +11,7 @@
   "quantity",
   "premium",
   "uom",
+  "customduty",
   "column_break_rxhf",
   "item_name",
   "item_group",
@@ -72,12 +73,17 @@
    "label": "Location",
    "options": "Warehouse",
    "reqd": 1
+  },
+  {
+   "fieldname": "customduty",
+   "fieldtype": "Float",
+   "label": "Custom Duty"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-01-21 15:40:33.914837",
+ "modified": "2025-01-21 15:53:34.593941",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Purchase InWard Item",
