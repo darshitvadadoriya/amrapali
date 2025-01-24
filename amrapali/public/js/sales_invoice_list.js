@@ -10,40 +10,90 @@ var outstanding_amount
 var total
 var rates
 
+async function send_bulk_mail(listview) {
+
+
+    const selected_records = listview.get_checked_items();
+    console.log(selected_records)
+
+    frappe.confirm(
+        'Are you sure you want to proceed sending e-mail?',
+        function () {
+
+            frappe.dom.freeze("Sending Emails. Please wait...");
+
+
+
+            frappe.call({
+                method: 'amrapali.amrapali.override.api.api.send_bulk_mail',
+                args: {
+                    'list': selected_records,
+                    'doctype': listview.doctype
+                },
+                callback: (res) => {
+                    console.log(res, 'henjnfd')
+                    // Unfreeze the screen
+                    frappe.dom.unfreeze()
+
+                    // Show success alert and refresh list view after completion
+                    frappe.show_alert({ message: "Emails Successfully Sent!", indicator: "green" });
+                }
+            })
+
+        },
+        function () {
+            // No action
+        }
+    );
+
+
+
+}
+
 
 frappe.listview_settings['Sales Invoice'] = {
-   refresh: function(listview) {
-       listview.page.add_inner_button("Deduct TDS", function() {
-           deduct_tds(listview);
-       });;
-   },
+    refresh: function (listview) {
+        listview.page.add_inner_button("Deduct TDS", function () {
+            frappe.confirm('Are you sure you want to Deduct TDS on this invoices?', async function () {
+                window.close();
+                deduct_tds(listview);
+            },
+                function () {
+                    console.log("Action not perform");
+                })
+        });;
+        listview.page.add_inner_button("Send Bulk Mail", function () {
+            send_bulk_mail(listview);
+        });;
+    },
 };
 
 
 
 async function deduct_tds(listview) {
-   
+
     const selected_records = listview.get_checked_items();
-   
-     // Freeze the screen with a custom message
-     frappe.dom.freeze("Processing TDS deduction. Please wait...");
 
-     await tds_deduct(selected_records);
- 
-     // Unfreeze the screen
-     frappe.dom.unfreeze()
+    // freez screen with a custom message
+    frappe.dom.freeze("Processing TDS deduction. Please wait...");
 
-     // Show success alert and refresh list view after completion
-     frappe.show_alert({ message: "TDS deduction completed successfully!", indicator: "green" });
+    await tds_deduct(selected_records);
 
-    //  Refresh the list view after 3 seconds
-     setTimeout(() => {
-         window.location.reload()
-     }, 3000);
+    // unfreez screen
+    frappe.dom.unfreeze()
+
+    // success alert message
+    frappe.show_alert({ message: "TDS deduction completed successfully!", indicator: "green" });
+
+    //  refresh the list view after 3 seconds
+    setTimeout(() => {
+        window.location.reload()
+    }, 3000);
 }
 
 
 async function tds_deduct(selected_records) {
+    var applied_tds_list = []
     for (const data of selected_records) {
         console.log(data);
 
@@ -60,14 +110,14 @@ async function tds_deduct(selected_records) {
                 method: "frappe.client.get_value",
                 args: {
                     doctype: "Sales Invoice",
-                    filters: { name: sales_invoice_id },
-                    fieldname: ["customer", "company", "custom_tds_applied", "status", "total", "outstanding_amount","custom_apply_tcs"],
+                    filters: { name: sales_invoice_id, docstatus: 1 },
+                    fieldname: ["customer", "company", "custom_tds_applied", "status", "total", "outstanding_amount", "custom_apply_tcs"],
                 },
             });
 
             console.log("TCS APPLIED ALREADY");
             console.log(salesInvoice.message.custom_apply_tcs == 0);
-            
+
             if (
                 salesInvoice.message &&
                 salesInvoice.message.custom_tds_applied != 1 &&
@@ -98,10 +148,10 @@ async function tds_deduct(selected_records) {
                 }
                 let customer_account
                 customer.message.accounts.forEach((data) => {
-                        
+
                     if (salesInvoice.message.company == data.company) {
                         customer_account = data.account;
-                        
+
                     }
                 });
                 // const customer_account = customer.message.accounts[0].account;
@@ -134,49 +184,49 @@ async function tds_deduct(selected_records) {
 
                 const currentDate = new Date();
                 console.log(currentDate);
-    try {
-            // Call a Frappe server-side method to fetch the fiscal year
-            const response = await frappe.call({
-                method: "frappe.client.get_value",
-                args: {
-                    doctype: "Fiscal Year", 
-                    filters: {
-                        'year_start_date': ['<=', currentDate], 
-                        'year_end_date': ['>=', currentDate]
-                    },
-                    fieldname: ['name', 'year_start_date', 'year_end_date']
-                }
-            });
+                try {
+                    // Call a Frappe server-side method to fetch the fiscal year
+                    const response = await frappe.call({
+                        method: "frappe.client.get_value",
+                        args: {
+                            doctype: "Fiscal Year",
+                            filters: {
+                                'year_start_date': ['<=', currentDate],
+                                'year_end_date': ['>=', currentDate]
+                            },
+                            fieldname: ['name', 'year_start_date', 'year_end_date']
+                        }
+                    });
 
-            if (response && response.message) {
-                const fiscalYear = response.message;
-                const fiscalYearStart = new Date(fiscalYear.year_start_date);
-                const fiscalYearEnd = new Date(fiscalYear.year_end_date);
+                    if (response && response.message) {
+                        const fiscalYear = response.message;
+                        const fiscalYearStart = new Date(fiscalYear.year_start_date);
+                        const fiscalYearEnd = new Date(fiscalYear.year_end_date);
 
-                
-                // Loop through the rates and check if they match the fiscal year's start and end dates
-                for (let rate of rates) {
-                    const fromDate = new Date(rate.from_date);
-                    const toDate = new Date(rate.to_date);
 
-                    // Check if the from_date and to_date match the fiscal year's start and end dates
-                    if (fromDate >= fiscalYearStart && toDate <= fiscalYearEnd) {
-                        console.log(`For Fiscal Year ${fiscalYear.name}:`);
-                        console.log(`Tax Withholding Rate: ${rate.tax_withholding_rate}`);
+                        // Loop through the rates and check if they match the fiscal year's start and end dates
+                        for (let rate of rates) {
+                            const fromDate = new Date(rate.from_date);
+                            const toDate = new Date(rate.to_date);
 
-                        let tax_withholding_rate = rate.tax_withholding_rate;
-                        let single_invoice_amount = rate.single_threshold;
-                        console.log(total);
-                       
+                            // Check if the from_date and to_date match the fiscal year's start and end dates
+                            if (fromDate >= fiscalYearStart && toDate <= fiscalYearEnd) {
+                                console.log(`For Fiscal Year ${fiscalYear.name}:`);
+                                console.log(`Tax Withholding Rate: ${rate.tax_withholding_rate}`);
 
-                        const taxWithholdingRate = rate.tax_withholding_rate;
-                        const singleInvoiceAmount = rate.single_threshold;
+                                let tax_withholding_rate = rate.tax_withholding_rate;
+                                let single_invoice_amount = rate.single_threshold;
+                                console.log(total);
 
-                        if (total > singleInvoiceAmount) {
-                            const tcsAmount = ((total - singleInvoiceAmount) * taxWithholdingRate) / 100;
-                            // cutTds(frm, tcsAmount, customerAccount, companyAccount);
-                            console.log(customer_account);
-                            await cut_tds(
+
+                                const taxWithholdingRate = rate.tax_withholding_rate;
+                                const singleInvoiceAmount = rate.single_threshold;
+
+                                if (total > singleInvoiceAmount) {
+                                    const tcsAmount = ((total - singleInvoiceAmount) * taxWithholdingRate) / 100;
+                                    // cutTds(frm, tcsAmount, customerAccount, companyAccount);
+                                    console.log(customer_account);
+                                    await cut_tds(
                                         total,
                                         tcsAmount,
                                         customer_account,
@@ -186,24 +236,32 @@ async function tds_deduct(selected_records) {
                                         sales_invoice_id,
                                         outstanding_amount
                                     );
-                        } else {
-                            frappe.msgprint("The invoice total is less than the deduction limit amount.");
+                                } else {
+                                    frappe.msgprint("The invoice total is less than the deduction limit amount.");
+                                }
+                            }
                         }
+                    } else {
+                        console.log('Current Fiscal Year not found.');
                     }
+                } catch (error) {
+                    console.error('Error fetching Fiscal Year data:', error);
                 }
-            } else {
-                console.log('Current Fiscal Year not found.');
+
+
             }
-        } catch (error) {
-            console.error('Error fetching Fiscal Year data:', error);
-        }
-                
-              
+            else{
+                applied_tds_list.push(salesInvoice.message.name)
             }
+           
         } catch (error) {
             console.error("An error occurred:", error);
         }
     }
+
+    // if(applied_tds_list){
+    //     frappe.msgprint(applied_tds_list)
+    // }
 }
 
 
@@ -242,7 +300,7 @@ async function cut_tds(
         if (journal_entry) {
             await frappe.db.set_value("Sales Invoice", sales_invoice_id, {
                 custom_tds_applied: 1,
-                custom_journal_entry: journal_entry,
+                custom_jv: journal_entry,
             });
         }
     } catch (error) {

@@ -1,4 +1,14 @@
 frappe.ui.form.on('Customer', {
+    custom_apply_tds(frm){
+        if(frm.doc.custom_apply_tds ==1)
+        {
+            frm.set_value("tax_withholding_category","")
+        }
+        else{
+            frm.set_value("custom_tds_category","")
+        }
+    },  
+
     custom_company_register_address(frm) {
         frappe.call({
             method: 'frappe.contacts.doctype.address.address.get_address_display',

@@ -7,6 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "in_active",
+  "packing_list_created",
   "section_break_zswd",
   "purchase_indent",
   "bar_no",
@@ -14,7 +15,8 @@
   "warehouse",
   "column_break_hobp",
   "status",
-  "weight"
+  "weight",
+  "weightoz"
  ],
  "fields": [
   {
@@ -63,18 +65,30 @@
    "fieldname": "weight",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Weight"
+   "label": "Weight(KG)"
   },
   {
    "fieldname": "purchase_indent",
    "fieldtype": "Link",
    "label": "Purchase Indent",
    "options": "Purchase Indent"
+  },
+  {
+   "fieldname": "weightoz",
+   "fieldtype": "Float",
+   "label": "Weight(oz)"
+  },
+  {
+   "default": "0",
+   "fieldname": "packing_list_created",
+   "fieldtype": "Check",
+   "label": "Packing List Created",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-04 10:51:17.632327",
+ "modified": "2025-01-23 13:16:28.467038",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Bar Numbers",

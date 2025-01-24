@@ -18,11 +18,11 @@
   "vaulting_agent",
   "indent",
   "purchase_indent",
-  "item",
   "get_bars",
   "section_break_zeua",
   "column_break_igwk",
   "delivered_items",
+  "sales_order_items",
   "amended_from",
   "section_break_citl",
   "total_bar_weight",
@@ -88,7 +88,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "depends_on": "eval:doc.doctype_list == \"Delivery Note\"",
+   "depends_on": "eval:doc.inout_ward=='Out Ward'",
    "fetch_from": "sales_order.customer",
    "fieldname": "customer",
    "fieldtype": "Link",
@@ -141,7 +141,7 @@
    "reqd": 1
   },
   {
-   "depends_on": "eval:doc.doctype_list == \"Purchase Receipt\"",
+   "depends_on": "eval:doc.inout_ward=='In Ward'",
    "fieldname": "supplier",
    "fieldtype": "Link",
    "label": "Supplier",
@@ -157,13 +157,6 @@
   },
   {
    "depends_on": "eval:doc.inout_ward == \"Out Ward\" && doc.docstatus < 1",
-   "fieldname": "item",
-   "fieldtype": "Link",
-   "label": "Item",
-   "options": "Item"
-  },
-  {
-   "depends_on": "eval:doc.inout_ward == \"Out Ward\" && doc.docstatus < 1",
    "fieldname": "get_bars",
    "fieldtype": "Button",
    "label": "Get Bars"
@@ -174,12 +167,17 @@
    "fieldtype": "Link",
    "label": "Indent",
    "options": "Purchase Indent"
+  },
+  {
+   "fieldname": "sales_order_items",
+   "fieldtype": "HTML",
+   "label": "Sales Order Items"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-21 17:43:44.313950",
+ "modified": "2025-01-22 18:27:15.765730",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Packing List",

@@ -27,6 +27,39 @@ frappe.ui.form.on("Packing List", {
                 
             }
 
+
+            
+
+            if(!frm.is_new()){
+                frappe.call({
+                    method: "amrapali.amrapali.doctype.packing_list.packing_list.get_doc_data",
+                    args: {
+                        doctype: frm.doc.doctype_list,
+                        doc_name: frm.doc.document,
+                    },
+                    callback:function(r){
+                            
+                            if(frm.doc.doctype_list == "Sales Order")
+                                {
+                                        var order_item_list = r.message.items
+                                        item_code_list = []
+                                        // item_code array
+                                        order_item_list.forEach(function(data,i){
+                                            console.log(data.item_code);
+                                            item_code_list.push(data.item_code)
+                                        }) 
+                                        console.log(order_item_list);
+
+                                        set_order_table(order_item_list)
+                                }     
+                    }
+                })
+            }
+            else{
+                 // Set the HTML field value
+                cur_frm.fields_dict.sales_order_items.$wrapper.html("");
+            }
+
     },
 
     inout_ward: function (frm) {
@@ -46,9 +79,9 @@ frappe.ui.form.on("Packing List", {
         }
         // if ward val is inward set delivery note
         if (ward_value == 'Out Ward') {
-            cur_frm.set_value("naming_series", "DN-PAC-.YYYY.-")
-            cur_frm.set_value("doctype_list", "Delivery Note")
-            frm.set_df_property("document", 'label', "Delivery Note");
+            cur_frm.set_value("naming_series", "SO-PAC-.YYYY.-")
+            cur_frm.set_value("doctype_list", "Sales Order")
+            frm.set_df_property("document", 'label', "Sales Order");
             // frm.set_df_property("total_bar_weight_from", 'label', "Total Bar Weight From Delivery Note");
             get_used_delivery(frm) // get used delivery note list
 
@@ -65,9 +98,9 @@ frappe.ui.form.on("Packing List", {
 
         
       
-        if(frm.doc.doctype_list == "Delivery Note")
+        if(frm.doc.doctype_list == "Sales Order")
         {
-            if (frm.doc.doctype_list === "Delivery Note") {
+            if (frm.doc.doctype_list === "Sales Order") {
                 get_purchase_indent(frm); 
             }
             
@@ -106,17 +139,73 @@ frappe.ui.form.on("Packing List", {
             },
             callback: function (r) {
 
+            
                 item_code_lst = []
                 var child_table
 
+                
                 console.log(r.message.items);
+                if(frm.doc.doctype_list == "Sales Order")
+                {
+                        var order_item_list = r.message.items
+                        item_code_list = []
+                        // item_code array
+                        order_item_list.forEach(function(data,i){
+                            console.log(data.item_code);
+                            item_code_list.push(data.item_code)
+                        }) 
+                        
+
+                        
+
+                        // set filter of item code show items only added in selected Sales order
+                        frm.set_query("item_code", "delivered_items", function (doc, cdt, cdn) {
+                        let row = locals[cdt][cdn];
+                        return {
+                            "filters": {
+                            "item_code":["in",item_code_list]
+                            },
+                        };
+                        });
+
+                        // set filters on purchase indent
+                        if(item_code_list)
+                        {
+                            
+                            //  Purchase indent filter(get indent reference id from bar number list)
+                            frappe.call({
+                                method:"amrapali.amrapali.doctype.packing_list.packing_list.get_indent",
+                                args:{
+                                    item_code_list: item_code_list
+                                },
+                                callback:function(r){
+                                    console.log(r);
+                                    let indent_list = r.message
+                                    frm.set_query("purchase_indent", function () {
+
+                                        return {
+                                        "filters": {
+                                            "name":["in",indent_list]
+                                        },
+                                        };
+                                    });
+                                }
+                            })
+                        }
+                    }
+                
+                
+
+
+
+               
                 var total_weight_from_prev = r.message.total_qty
                 var items_data = r.message.items
                 if (doctype == "Purchase Receipt") {
                     child_table = "purchase_items"
                     frm.clear_table("purchase_items");
                 }
-                if (doctype == "Delivery Note") {
+                if (doctype == "Sales Order") {
                     child_table = "delivered_items"
                     frm.clear_table("delivered_items");
                 }
@@ -150,14 +239,16 @@ frappe.ui.form.on("Packing List", {
             indent_list.push(purchase_indents[i].purchase_indent_item);  // Add each purchase_indent_item to the list
         }
     
-        // Make an API call to fetch "Bar Numbers" based on the indent list
+        // get bar list as per selected indent
         frappe.call({
             method: 'frappe.client.get_list',
             args: {
-                doctype: 'Bar Numbers',  // We're fetching data from the "Bar Numbers" doctype
-                fields: ['*'],  // Fetch all fields
+                doctype: 'Bar Numbers',  
+                fields: ['*'], 
                 filters: {
-                    'purchase_indent': ['in', indent_list]  // Filter records where 'purchase_indent' is in the indent_list
+                    'purchase_indent': ['in', indent_list],
+                    'item_code':['in', item_code_list],
+
                 }
             },
             callback: function(r) {
@@ -165,8 +256,8 @@ frappe.ui.form.on("Packing List", {
                 // Check if the response contains a 'message' and it is an array (indicating the data was returned successfully)
                 if (r.message && Array.isArray(r.message)) {
                     // If the message exists and contains an array, reset the 'delivered_items' child table in the form
-                    frm.doc.delivered_items = [];  // Clear existing items in the child table
-                    frm.refresh_field('delivered_items');  // Refresh the table to reflect the cleared state
+                    frm.doc.delivered_items = [];  
+                    frm.refresh_field('delivered_items');  
                     
                     // Loop through each bar number record returned in the API response
                     r.message.forEach(element => {
@@ -180,16 +271,17 @@ frappe.ui.form.on("Packing List", {
                         new_row.weight = element.weight;
                         new_row.weightoz = element.weightoz;
                         new_row.warehouse = element.warehouse;
-                    
+                        
+                        
                         // Refresh the child table field to show the newly added row
                         frm.refresh_field('delivered_items');
+                        frm.script_manager.trigger('item_code', new_row.doctype, new_row.name);	
                     });
     
                     // Refresh the child table field again after all rows have been added
                     frm.refresh_field('delivered_items');
                     
-                    // Optionally save the form here after all rows are added, depending on your needs
-                    // frm.save();  // Uncomment this line if you want to save the form automatically after the rows are added
+                   
                 } else {
                     // If no data is found, show a message to the user
                     frappe.msgprint(__('No data found.'));
@@ -229,7 +321,7 @@ function get_used_purchase(frm) {
                 return {
                     filters: [
                         ["Purchase Receipt", "name", "not in", r.message],
-                        ["Purchase Receipt", "docstatus", "=", "1"]  // Filtering 'name' field in Delivery Note doctype
+                        ["Purchase Receipt", "docstatus", "=", "1"]  // Filtering 'name' field in Purchase Receipt doctype
                     ]
                 };
             });
@@ -246,12 +338,12 @@ function get_used_delivery(frm) {
         method: 'amrapali.amrapali.doctype.packing_list.packing_list.get_used_delivery',
         callback: function (r) {
             console.log(r);
-            // set filters for delivery note doc link field
+            // set filters for Sales Order doc link field
             frm.set_query("document", function () {
                 return {
                     filters: [
-                        ["Delivery Note", "name", "not in", r.message],
-                        ["Delivery Note", "docstatus", "=", "1"]  // Filtering 'name' field in Delivery Note doctype
+                        ["Sales Order", "name", "not in", r.message],
+                        ["Sales Order", "docstatus", "=", "1"]  // Filtering 'name' field in Sales Order doctype
                     ]
                 };
             });
@@ -266,13 +358,13 @@ function get_purchase_indent(frm) {
     frappe.call({
         method: 'frappe.client.get',
         args: {
-            doctype: 'Delivery Note',
+            doctype: 'Sales Order',
             name: frm.doc.document
         },
         callback: function(res) {
             frm.set_value('purchase_indent',[])
             if (res && res.message) {
-                console.log('Delivery Note:', res.message.purchase_indent);
+                console.log('Sales Order:', res.message.purchase_indent);
                 if(res.message.purchase_indent) {
                     setTimeout(async () => {
                         frm.set_value('purchase_indent',[{
@@ -285,11 +377,11 @@ function get_purchase_indent(frm) {
                 frm.refresh_field('purchase_indent')
                 // Fetch Purchase Indent Item with explicit error handlin
             } else {
-                frappe.msgprint(__('Delivery Note not found.'));
+                frappe.msgprint(__('Sales Order not found.'));
             }
         },
         error: function(err) {
-            console.error('Error fetching Delivery Note:', err);
+            console.error('Error fetching Sales Order:', err);
         }
     });
     
@@ -297,3 +389,83 @@ function get_purchase_indent(frm) {
     
 }
 
+
+
+
+
+
+
+
+
+function set_order_table(data) {
+    // HTML content for the table with dynamic rows
+    const tableHTML = `
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            table {
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 0;
+                margin: 20px 0;
+                font-size: 14px;
+                background-color: #fff;
+            }
+            thead {
+                background-color: #f3f4f6;
+            }
+            thead th {
+                padding: 10px;
+                text-align: left;
+                font-weight: 600;
+                border: 1px solid #d1d8dd;
+            }
+            tbody td {
+                padding: 8px;
+                border: 1px solid #d1d8dd;
+                white-space: nowrap;
+            }
+            tbody tr:nth-child(even) {
+                background-color: #f9fafb;
+            }
+            tbody tr:hover {
+                background-color: #f3f4f6;
+            }
+            tbody tr td:last-child {
+                text-align: right;
+            }
+        </style>
+        <span>Sales Order Items</span>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Value Date</th>
+                    <th>MCX Rate</th>
+                    <th>Premium</th>
+                    <th>Quantity</th>
+                    <th>Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${data
+                    .map(
+                        (row) => `
+                    <tr>
+                        <td>${row.item_code}</td>
+                        <td>${frappe.datetime.str_to_user(row.delivery_date)}</td>
+                        <td>${row.custom_mcx_rate}</td>
+                        <td>${row.custom_premium}</td>
+                        <td>${row.qty}</td>
+                        <td>${row.rate}</td>
+                    </tr>
+                `
+                    )
+                    .join('')}
+            </tbody>
+        </table>`;
+
+    // Set the HTML field value
+    cur_frm.fields_dict.sales_order_items.$wrapper.html(tableHTML);
+}

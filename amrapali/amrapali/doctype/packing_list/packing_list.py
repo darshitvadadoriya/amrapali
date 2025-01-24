@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
+import json
 from frappe.model.document import Document
 
 
@@ -26,6 +27,7 @@ class PackingList(Document):
 						"item_code": data.item_code,
 						"warehouse": data.warehouse,
 						"weight": data.weight,
+                        "weightoz":data.weightoz,
 						"status": "Active"
 					})
                     doc.insert()
@@ -34,10 +36,10 @@ class PackingList(Document):
                 frappe.throw(error_message)
         
         # if doctype is delivery note
-        if self.doctype_list == "Delivery Note":
+        if self.doctype_list == "Sales Order":
             for data in self.delivered_items:
                 doc = frappe.get_doc("Bar Numbers",data.bar_no)
-                doc.status = "Delivered"
+                doc.packing_list_created = 1
                 doc.save()
                 
        
@@ -50,7 +52,7 @@ class PackingList(Document):
         
         if self.inout_ward == 'Out Ward':
             for row in self.delivered_items:
-                frappe.db.set_value("Bar Numbers",row.bar_no,"status","Active")
+                frappe.db.set_value("Bar Numbers",row.bar_no,"packing_list_created",0)
 
         
     
@@ -129,7 +131,7 @@ def get_doc_data(doctype,doc_name):
 @frappe.whitelist()
 def get_used_delivery():
     used_delivery = []
-    delivery = frappe.get_list("Packing List",fields=["document"],filters={"inout_ward":"Out Ward"})
+    delivery = frappe.get_list("Packing List",fields=["document"],filters={"inout_ward":"Out Ward","docstatus": ["!=", 2]})
     for data in delivery:
         used_delivery.append(data["document"])
     return used_delivery
@@ -139,7 +141,7 @@ def get_used_delivery():
 @frappe.whitelist()
 def get_used_purchase():
     used_purchase = []
-    purchase = frappe.get_list("Packing List",fields=["document"],filters={"inout_ward":"In Ward","docstatus": ["!=", "Cancelled"]})
+    purchase = frappe.get_list("Packing List",fields=["document"],filters={"inout_ward":"In Ward","docstatus": ["!=", 2]})
     for data in purchase:
         used_purchase.append(data["document"])
     return used_purchase
@@ -148,3 +150,12 @@ def get_used_purchase():
 def get_packing_list(name):
     packing_list = frappe.get_doc("Delivery Note",name,as_dict=1)
     return packing_list
+
+
+
+@frappe.whitelist()
+def get_indent(item_code_list):
+    item_code_list = json.loads(item_code_list)
+    indent_list = frappe.get_list("Bar Numbers",fields=["purchase_indent"],filters={"status":"Active","item_code":["in",item_code_list]})
+    flat_list = [item["purchase_indent"] for item in indent_list]
+    return flat_list
