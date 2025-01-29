@@ -7,6 +7,7 @@ $(document).ready(function (event) {
 
 
     var companyNames
+    var id
     frappe.call({
         method: "amrapali.api.get_company_list",
         callback: function (response) {
@@ -81,13 +82,8 @@ $(document).ready(function (event) {
 
 
 
-
-            // check session in after login
-            // var id = sessionStorage.getItem('id')
-            // if (id == "company") {
-            //     dialog.show();
-            // }
-
+            id = sessionStorage.getItem('id')
+    
             // check role and show company setup
             frappe.call({
                 method: "amrapali.api.roles",
@@ -96,23 +92,22 @@ $(document).ready(function (event) {
                 },
             }).then(records => {
                 role = records.message
-                var id = sessionStorage.getItem('id')
 
-                // if user have specifica role to show dialog
-                if (role.includes("Admin") && id == "company" || frappe.session.user == "Administrator" && id == "company") {
-                    
-                    dialog.show();
-                }
+               if (id === "company" && !role.includes("Admin") && frappe.session.user !== "Administrator") {
+                dialog.show();
+            }
+                
+                
             })
 
 
 
-
+            console.log(id);
             // set current company value in navbar
             if (id == "login") {
                 //   for set current company name
                 let details = frappe.defaults.get_default('company');
-                var company_nm = details ? details : "No Company Found";
+                var company_nm = details ? details : "";
                 var companyDiv = $('<div/>', {
                     text: company_nm,
                     class: 'custom-company-div',
