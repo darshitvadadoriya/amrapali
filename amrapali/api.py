@@ -33,3 +33,33 @@ def roles(email):
         roles.append(role.role)
 
     return roles
+
+
+
+
+# set or create company permission 
+@frappe.whitelist()
+def manage_user_permission(company, user):
+   
+
+    # Get the existing User Permission
+    doc_name = frappe.db.get_value('User Permission', {'user': user, 'allow': 'Company'}, ['name'])
+
+    # check role is Admin or not
+    is_admin = 'Admin' in [role.role for role in frappe.get_all('Has Role', filters={'parent': user}, fields=['role'])]
+
+    if is_admin:
+        frappe.errprint(f"User {user} has Administrator role. Skipping User Permission creation.")
+    else:
+        if doc_name:
+            # if user permission is exists then 
+            frappe.db.set_value("User Permission", doc_name, 'for_value', company)
+        else:
+            # if permission is not exists then create new
+            new_doc = frappe.new_doc("User Permission")
+            new_doc.user = user
+            new_doc.allow = "Company"
+            new_doc.for_value = company
+            new_doc.insert()
+
+    return "User permission processed successfully"

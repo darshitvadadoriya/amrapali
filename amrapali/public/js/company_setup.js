@@ -38,9 +38,9 @@ $(document).ready(function (event) {
                     if (company_nm.value != "") {
                         var companynm = values["company_name"]
                         frappe.call({
-                            method: "permission",
+                            method: "amrapali.api.manage_user_permission",
                             args: {
-                                value: companynm,
+                                company: companynm,
                                 user: frappe.session.user
                             }
                         });
