@@ -8,6 +8,8 @@ $(document).ready(function (event) {
 
     var companyNames
     var id
+    var default_location
+
     frappe.call({
         method: "amrapali.api.get_company_list",
         callback: function (response) {
@@ -49,24 +51,36 @@ $(document).ready(function (event) {
 
                         dialog.hide();
 
-                        $('body').removeClass("disable-pointer-events")
-                        // Not shown dialog after submit button
+                     
                         sessionStorage.setItem("id", "login");
 
-
-
-
                         frappe.call({
-                            method: 'frappe.core.doctype.session_default_settings.session_default_settings.set_session_default_values',
+                            method: "amrapali.api.get_location",
                             args: {
-                                default_values: { company: companynm }
+                                company:companynm
                             },
+                            callback: function(response) {
+                                if (response.message) {
+                                    // Process the warehouse data here
+                                    console.log(response.message[0].name);
+                                    default_location = response.message[0].name
+                                    
+                                   
+                                }
+                            }
                         });
 
-
-
-                        // reload page after set the company
-                        frappe.ui.toolbar.clear_cache()
+                       setTimeout(() => {
+                            frappe.call({
+                                method: 'frappe.core.doctype.session_default_settings.session_default_settings.set_session_default_values',
+                                args: {
+                                    default_values: { company: companynm,warehouse:default_location }
+                                },
+                            });
+                            // reload page after set the company
+                            frappe.ui.toolbar.clear_cache()
+                       }, 150);
+                        
 
 
 

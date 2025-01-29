@@ -63,3 +63,9 @@ def manage_user_permission(company, user):
             new_doc.insert()
 
     return "User permission processed successfully"
+
+
+# getting the location(warehouse list) based on the company
+@frappe.whitelist()
+def get_location(company):
+    return frappe.get_all("Warehouse", fields=["name"],filters={"company":company}, ignore_permissions=True)
