@@ -27,6 +27,7 @@ app_license = "mit"
 # include js, css files in header of desk.html
 # app_include_css = "/assets/amrapali/css/amrapali.css"
 # app_include_js = "/assets/amrapali/js/set_session_company.js"
+app_include_js = "/assets/amrapali/js/company_setup.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/amrapali/css/amrapali.css"
@@ -53,7 +54,8 @@ doctype_js = {"Sales Invoice" : "public/js/sales_invoice.js",
               'Sales Order': 'public/js/sales_order.js',
               'Delivery Note': 'public/js/delivery_order.js',
               'Sales Order Item': 'public/js/sales_order.js',
-              'Purchase Receipt': 'public/js/purchase_receipt.js'
+              'Purchase Receipt': 'public/js/purchase_receipt.js',
+               "*": "public/js/form_defaults.js"
               }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 doctype_list_js = {"Sales Invoice" : "public/js/sales_invoice_list.js",
