@@ -1,0 +1,45 @@
+<div class="layout-main-section frappe-card">
+    <div class="row ml-1">
+
+  
+    
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <!-- Left Side: Assets -->
+            <div class="col-6 border">
+                {% for item in assets %}
+                <div class="d-flex justify-content-between align-items-center py-1">
+                    <div style="padding-left: calc({{ item.indent }} * 2rem);" 
+                         class="{% if item.is_group == 1 %} font-weight-bold{% endif %}">
+                        {{ item.account }}
+                    </div>
+                    <div class="text-end" style="width: 10rem;" 
+                         class="{% if item.is_group == 1 %} font-weight-bold{% endif %}">
+                        {{ item.total }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+    
+            <!-- Right Side: Liabilities -->
+            <div class="col-6 border">
+                {% for item in liabilities %}
+                <div class="d-flex justify-content-between align-items-center py-1">
+                    <div style="padding-left: calc({{ item.indent }} * 2rem);" 
+                         class="{% if item.is_group == 1 %} font-weight-bold{% endif %}">
+                        {{ item.account }}
+                    </div>
+                    <div class="text-end" style="width: 10rem;" 
+                         class="{% if item.is_group == 1 %} font-weight-bold{% endif %}">
+                        {{ item.total }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    
+</div>

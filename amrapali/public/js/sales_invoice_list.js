@@ -12,8 +12,23 @@ var rates
 
 async function send_bulk_mail(listview) {
 
-
     const selected_records = listview.get_checked_items();
+
+    if (!selected_records.length) {
+        frappe.msgprint(__('Please select at least one record'));
+        return false;
+    }
+
+    // Check if any record is in Draft or Cancelled state
+    const hasDraftOrCancelled = selected_records.some(record => 
+        record.docstatus === 0 || // Draft
+        record.docstatus === 2    // Cancelled
+    );
+
+    if (hasDraftOrCancelled) {
+        frappe.msgprint(__('Selected records contain Draft or Cancelled documents'));
+        return false;
+    }
     console.log(selected_records)
 
     frappe.confirm(
@@ -307,7 +322,6 @@ async function cut_tds(
         console.error("Error creating journal entry:", error);
     }
 }
-
 
 
 

@@ -6,344 +6,54 @@ var company_account
 var rates
 var single_invoice_amount
 
+frappe.ui.form.on('Sales Invoice Item', {
 
-// frappe.ui.form.on('Sales Invoice', {
-//     onload: function(frm) {
-//         if (frm.is_new() && frm.doc.__islocal) {
-//             // fields set blank on duplicate form from another form
-//             frm.set_value('custom_tds_applied', 0);
-//             frm.set_value('custom_journal_entry', '');
-//         }
-//     },
-// 	refresh(frm) {
-//         if(frm.doc.custom_tds_applied != 1 && frm.doc.docstatus == "1")   
-//         {
-//             frm.add_custom_button("Deduct TDS",function(){
+    custom_premium(frm, cdt, cdn) {
+        let row = locals[cdt][cdn]; 
+        update_rate(frm, row); 
+    },
+    
+    custom_mcx_rate(frm, cdt, cdn) {
+        let row = locals[cdt][cdn]; 
+        update_rate(frm, row); 
+    },
+    
+    custom_currency_exchange_rate(frm, cdt, cdn){
+        let row = locals[cdt][cdn]; 
+        update_rate(frm, row);
+    },
+    // weight calculation
+    qty: function(frm, cdt, cdn) {
+        let child = locals[cdt][cdn];
+        update_weight(frm, child);
+    },
+    weight_uom: function(frm, cdt, cdn) {
+        let child = locals[cdt][cdn];
+        update_weight(frm, child);
+    },
+    custom_item_weight: function(frm, cdt, cdn) {
+        let child = locals[cdt][cdn];
+        update_weight(frm, child);
+    }
+    
+});
 
+function update_rate(frm, row) {
 
+    let custom_premium = row.custom_premium || 0;
+    let custom_mcx_rate = row.custom_mcx_rate || 0;
+    let rate = (custom_mcx_rate + custom_premium );
 
-//                 var customer = frm.doc.customer
-
-//                 frappe.call({
-//                     method: "frappe.client.get",
-//                     args: {
-//                         doctype: "Customer",
-//                         name: customer, 
-//                     },
-//                     callback: function (res) {
-//                         console.log(res);
-//                         if (res && res.message) {
-//                             customer_account = res.message.accounts[0].account
-//                             tax_category = res.message.custom_tds_category
-//                             if(tax_category)
-//                             {
-//                                 frappe.call({
-//                                     method: "frappe.client.get",
-//                                     args: {
-//                                         doctype: "Tax Withholding Category",
-//                                         name: tax_category, // The unique name of the customer
-//                                     },
-//                                     callback: function (res) {
-//                                         console.log(res);
-//                                         var account_list = res.message.accounts
-//                                         rates = res.message.rates
-//                                         console.log(rates);
-//                                         $.each(account_list,function(index,data){
-//                                             if(frm.doc.company == data.company)
-//                                             {
-//                                                 company_account = data.account
-
-//                                                 // Get the current date
-//                          const currentDate = new Date();
-
-//                          // Call a Frappe server-side method to fetch the fiscal year
-//                          frappe.call({
-//                              method: "frappe.client.get_value",
-//                              args: {
-//                                  doctype: "Fiscal Year", 
-//                                  filters: {
-//                                      'year_start_date': ['<=', currentDate], 
-//                                      'year_end_date': ['>=', currentDate]
-//                                  },
-//                                  fieldname: ['name', 'year_start_date', 'year_end_date']
-//                              },
-//                              callback: function(response) {
-//                                  if (response && response.message) {
-//                                      const fiscalYear = response.message;
-//                                      const fiscalYearStart = new Date(fiscalYear.year_start_date);
-//                                      const fiscalYearEnd = new Date(fiscalYear.year_end_date);
-
-//                                      console.log(`Current Fiscal Year: ${fiscalYear.name}`);
-//                                      console.log(`Start Date: ${fiscalYearStart}`);
-//                                      console.log(`End Date: ${fiscalYearEnd}`);
-
-
-
-//                                      // Loop through rows and check if from_date and to_date match the fiscal year range
-//                                      rates.forEach(rate => {
-//                                          const fromDate = new Date(rate.from_date);
-//                                          const toDate = new Date(rate.to_date);
-
-//                                          // Check if the from_date and to_date match the fiscal year's start and end dates
-//                                          if (fromDate >= fiscalYearStart && toDate <= fiscalYearEnd) {
-//                                              console.log(`For Fiscal Year ${fiscalYear.name}:`);
-//                                              console.log(`Tax Withholding Rate: ${rate.tax_withholding_rate}`);
-//                                              tax_withholding_rate = rate.tax_withholding_rate
-//                                              single_invoice_amount = rate.single_threshold
-
-//                                              if(frm.doc.total > single_invoice_amount){
-//                                                 cut_tds(frm,tax_withholding_rate,customer_account,company_account)
-//                                              }
-//                                              else{
-//                                                 frappe.msgprint("The invoice total is less than the deduction limit amount.")
-//                                              }
-//                                          }
-//                                      });
-//                                  } else {
-//                                      console.log('Current Fiscal Year not found.');
-//                                  }
-//                              }
-//                         });
-//                                             }
-//                                             else{
-//                                                 frappe.throw("please set account for this company")
-//                                             }
-//                                         })
-
-
-
-//                                         // get financial year wise tds rate
-
-
-
-
-//                                     }
-//                                 });
-//                             }
-//                             // setTimeout(() => {
-//                             //     cur_dialog.set_value("tds_category",tax_category)
-//                             // }, 500);
-
-//                             } else {
-//                                 console.error("No data found for the given customer.");
-//                             }
-//                         },
-//                     });
-
-
-
-//             })
-//         }
-//     }
-
-
-
-
-// })
-
-
-// function cut_tds(frm,tax_withholding_rate,customer_account,company_account) {
-//     let tds_value = (frm.doc.total * tax_withholding_rate) / 100;
-
-//     frappe.call({
-//         method:"amrapali.amrapali.override.api.tds.create_journal_entry",
-//         args:{
-//             sales_invoice:frm.doc.name,
-//             customer_name:frm.doc.customer,
-//             tds_value:tds_value,
-//             company:frm.doc.company,
-//             customer_account:customer_account,
-//             company_account:company_account,
-//             outstanding_amount:frm.doc.outstanding_amount
-//         },
-//         callback:function(r){
-//             var journal_entry = r.message.name
-//             if(journal_entry){
-//                 frappe.db.set_value("Sales Invoice",frm.doc.name,{"custom_tds_applied":1,"custom_journal_entry":journal_entry})
-//             }
-
-//         }
-//     })
-// }
-
-
-// =====================================================================
-
-// frappe.ui.form.on('Sales Invoice', {
-//     onload: function(frm) {
-//         if (frm.is_new() && frm.doc.__islocal) {
-//             // Fields set to blank on duplicate form from another form
-//             frm.set_value('custom_tds_applied', 0);
-//             frm.set_value('custom_journal_entry', '');
-//         }
-//     },
-//     refresh(frm) {
-//         if (frm.doc.custom_tds_applied != 1 && frm.doc.docstatus == "1") {
-//             frm.add_custom_button("Collect TCS", function() {
-//                 frappe.dom.freeze("Processing TCS Collection    ...");
-
-//                 let customer = frm.doc.customer;
-
-//                 frappe.call({
-//                     method: "frappe.client.get",
-//                     args: {
-//                         doctype: "Customer",
-//                         name: customer,
-//                     },
-//                     callback: function(res) {
-//                         if (res && res.message) {
-//                             res.message.accounts.forEach((data) => {
-//                                 console.log(data.company);
-//                                 console.log(data.company == frm.doc.company);
-//                                 if (data.company == frm.doc.company) {
-//                                     console.log("In the customer account");
-//                                      customer_account  = data.account 
-//                                      console.log(customer_account);
-//                                     // return false; 
-//                                 }
-//                             });
-
-//                             let tax_category = res.message.custom_tds_category;
-
-//                             if (tax_category) {
-//                                 frappe.call({
-//                                     method: "frappe.client.get",
-//                                     args: {
-//                                         doctype: "Tax Withholding Category",
-//                                         name: tax_category,
-//                                     },
-//                                     callback: function(res) {
-//                                         console.log(res);
-//                                         if (res && res.message) {
-//                                             let account_list = res.message.accounts;
-//                                             let rates = res.message.rates;
-
-//                                             let company_account;
-//                                             $.each(account_list, function(index, data) {
-//                                                 console.log(data);
-//                                                 console.log(frm.doc.company == data.company);
-//                                                 if (frm.doc.company == data.company) {
-//                                                     company_account = data.account;
-
-//                                                     // Get the current date
-//                                                     const currentDate = new Date();
-
-//                                                     frappe.call({
-//                                                         method: "frappe.client.get_value",
-//                                                         args: {
-//                                                             doctype: "Fiscal Year",
-//                                                             filters: {
-//                                                                 'year_start_date': ['<=', currentDate],
-//                                                                 'year_end_date': ['>=', currentDate],
-//                                                             },
-//                                                             fieldname: ['name', 'year_start_date', 'year_end_date'],
-//                                                         },
-//                                                         callback: function(response) {
-//                                                             if (response && response.message) {
-//                                                                 const fiscalYear = response.message;
-//                                                                 const fiscalYearStart = new Date(fiscalYear.year_start_date);
-//                                                                 const fiscalYearEnd = new Date(fiscalYear.year_end_date);
-
-//                                                                 // Loop through rows and check if from_date and to_date match the fiscal year range
-//                                                                 rates.forEach(rate => {
-//                                                                     const fromDate = new Date(rate.from_date);
-//                                                                     const toDate = new Date(rate.to_date);
-
-//                                                                     if (fromDate >= fiscalYearStart && toDate <= fiscalYearEnd) {
-//                                                                         let tax_withholding_rate = rate.tax_withholding_rate;
-//                                                                         let single_invoice_amount = rate.single_threshold;
-
-//                                                                         if (frm.doc.total > single_invoice_amount) {
-//                                                                             let tcs_amount = (frm.doc.total - single_invoice_amount) * tax_withholding_rate / 100
-//                                                                             console.log(tcs_amount);
-//                                                                             console.log("TCS AMOUNT=====================================");
-//                                                                             cut_tds(frm, tcs_amount, customer_account, company_account);
-
-//                                                                         } else {
-//                                                                             frappe.msgprint("The invoice total is less than the deduction limit amount.");
-//                                                                             frappe.ui.form.unfreeze();
-//                                                                         }
-//                                                                     }
-//                                                                 });
-//                                                             } else {
-//                                                                 console.error("Current Fiscal Year not found.");
-//                                                                 frappe.ui.form.unfreeze();
-//                                                             }
-//                                                         }
-//                                                     });
-//                                                 } 
-
-//                                             });
-//                                         }
-//                                     }
-//                                 });
-//                             } else {
-//                                 frappe.msgprint("No TDS category found for the customer.");
-//                                 frappe.ui.form.unfreeze();
-//                             }
-//                         }
-//                     },
-//                     error: function() {
-//                         frappe.ui.form.unfreeze();
-//                     }
-//                 });
-
-
-
-//             });
-//         }
-//     }
-// });
-
-// function cut_tds(frm, tcs_amount, customer_account, company_account) {
-
-//     console.log(tcs_amount);
-//     console.log(customer_account);
-//     console.log(company_account);
-
-
-//     frappe.call({
-//         method: "amrapali.amrapali.override.api.tds.create_journal_entry",
-//         args: {
-//             sales_invoice: frm.doc.name,
-//             customer_name: frm.doc.customer,
-//             tds_value: tcs_amount,
-//             company: frm.doc.company,
-//             customer_account: customer_account,
-//             company_account: company_account,
-//             outstanding_amount: frm.doc.outstanding_amount,
-//         },
-//         callback: function(r) {
-//             if (r && r.message) {
-//                 let journal_entry = r.message.name;
-//                 if (journal_entry) {
-//                     frappe.db.set_value("Sales Invoice", frm.doc.name, {
-//                         "custom_tds_applied": 1,
-//                         "custom_journal_entry": journal_entry,
-//                     });
-//                 }
-//             }
-//             frappe.dom.unfreeze();
-//             frappe.show_alert({ message: "TDS deduction completed successfully!", indicator: "green" });
-//         },
-//         error: function() {
-//             frappe.dom.unfreeze()
-//         }
-//     });
-// }
-
-
-// get_customer_mail() {
-//     frappe.call({
-//         method: 'frappe.client.get',
-//         args: {
-//             'doctype': 'Customer',
-//             filters: {
-//                 'name':
-//             }
-//         }
-//     })
-// }
+    if( row.custom_divide ) {
+        rate /= row.custom_multiplier;
+    }
+    else {
+        rate *= row.custom_multiplier;
+    }
+    
+    frappe.model.set_value(row.doctype, row.name, 'rate', rate);
+    frappe.model.set_value(row.doctype, row.name, 'custom_currency_exchange_rate', custom_currency_exchange_rate)
+}
 
 
 frappe.ui.form.on('Sales Invoice', {
@@ -353,27 +63,54 @@ frappe.ui.form.on('Sales Invoice', {
         // sending invoice to customer
         frm.add_custom_button('Send mail', function () {
 
-            frappe.confirm('Are you sure you want to send the invoice to the customer?', function () {
-                 window.close(); 
-                },
+            frappe.confirm(
+                'Are you sure you want to proceed sending an e-mail?',
                 function () {
-                     show_alert('Thanks for continue here!') 
-                })
-            // let recipient = 'darshpatelvadadoriya@gmail.com'
-            // frappe.call({
-            //     method: 'amrapali.amrapali.override.api.api.sendmail',
-            //     args: {
-            //         'recipients': recipient,
-            //         'message': "Hello",
-            //         'msg': 'helZZlo',
-            //         'subject': 'World',
-            //         'reference_doctype': frm.doc.doctype,
-            //         'reference_name': frm.doc.name,
-            //     },
-            //     callback: (res) => {
-            //         console.log(res, 'Hello')
-            //     }
-            // })
+        
+                    frappe.dom.freeze("Sending Email. Please wait...");
+        
+        
+        
+                    frappe.call({
+                        method: 'amrapali.amrapali.override.api.api.send_single_mail',
+                        args: {
+
+                            'parent_doctype': frm.doctype,
+                            'parent_name': frm.doc.name,
+                            'data': [
+                                {
+                                    'reference_doctype': frm.doctype,
+                                    'reference_name': frm.doc.name
+                                }
+                               
+                            ],
+
+                            // 'msg': '',
+                            // 'subject': frm.doc.name,
+                            // 'attachments': true,
+                            // 'recipient_doctype': 'Customer',
+                            // 'recipient_field': 'customer',
+                            // 'email_field': 'email_id'
+                            'msg': `Dear ${frm.doc.customer_name},\n\nPlease find attached the invoice ${frm.doc.name} for your recent purchase. If you have any questions or need assistance, feel free to reach out.\n\nThank you!`,
+                            'subject': frm.doc.name,
+                            'attachments': true,
+                            'recipient_doctype': 'Customer',
+                            'recipient_field': 'customer',
+                            'email_field': 'email_id'
+
+                        },
+                        callback: (res) => {
+                            console.log(res, 'henjnfd')
+                            // Unfreeze the screen
+                            frappe.dom.unfreeze()
+        
+                            // Show success alert and refresh list view after completion
+                            frappe.show_alert({ message: "Email Successfully Sent!", indicator: "green" });
+                        }
+                    })
+        
+                }
+            )
         });
 
         if (frm.is_new() && frm.doc.__islocal) {
@@ -387,6 +124,19 @@ frappe.ui.form.on('Sales Invoice', {
         await check_customer_taxcategory(frm)
     },
     refresh: async function (frm) {
+
+        // remove custom buttons
+        setTimeout(() => {
+            frm.remove_custom_button('Maintenance Schedule', 'Create');
+            frm.remove_custom_button('Dunning', 'Create');
+            frm.remove_custom_button('Invoice Discounting', 'Create');
+            frm.remove_custom_button('Fetch Timesheet');
+            frm.remove_custom_button('Quality Inspection(s)','Create');
+            frm.remove_custom_button('Quotation', 'Get Items From');
+            frm.remove_custom_button('Delivery Order', 'Get Items From');
+            frm.remove_custom_button('Sales Order', 'Get Items From');
+    
+        }, 100);
         
         await check_customer_taxcategory(frm)
 
@@ -583,3 +333,33 @@ async function check_customer_taxcategory(frm){
 
 }
 
+
+
+
+
+
+
+// calculate weight
+function update_weight(frm, child) {
+    let custom_item_weight = child.custom_item_weight || 0;
+    let qty = child.qty || 0;
+
+    if (child.weight_uom == 'Kg') {
+        child.custom_total_item_weight = custom_item_weight * 1000 * qty; // Convert Kg to Gram and multiply by qty
+        console.log(child.custom_total_item_weight);
+    } else if (child.weight_uom == 'Gram') {
+        child.custom_total_item_weight = custom_item_weight * qty; // Multiply weight by qty if already in Gram
+        console.log(child.custom_total_item_weight);
+    }
+
+    frm.refresh_field('items');
+    calculate_total_weight(frm);
+}
+
+function calculate_total_weight(frm) {
+    let total_weight = 0;
+    frm.doc.items.forEach(item => {
+        total_weight += item.custom_total_item_weight || 0;
+    });
+    frm.set_value('custom_total_weight', total_weight/1000);
+}

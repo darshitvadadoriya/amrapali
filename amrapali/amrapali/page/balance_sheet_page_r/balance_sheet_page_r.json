@@ -1,0 +1,19 @@
+{
+ "content": null,
+ "creation": "2025-01-30 18:04:00.143314",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2025-01-30 18:04:00.143314",
+ "modified_by": "Administrator",
+ "module": "amrapali",
+ "name": "balance-sheet-page-r",
+ "owner": "Administrator",
+ "page_name": "balance-sheet-page-r",
+ "roles": [],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Balance Sheet Page Report"
+}

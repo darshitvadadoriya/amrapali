@@ -13,7 +13,6 @@
   "by_air__sea",
   "air_way_bill_no",
   "column_break_hyuj",
-  "status",
   "date",
   "vaulting_agent",
   "company",
@@ -24,7 +23,6 @@
   "section_break_hgdw",
   "total_quantity",
   "column_break_tngn",
-  "pending_quantity",
   "amended_from"
  ],
  "fields": [
@@ -58,16 +56,6 @@
   {
    "fieldname": "column_break_hyuj",
    "fieldtype": "Column Break"
-  },
-  {
-   "allow_on_submit": 1,
-   "default": "Open",
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "in_standard_filter": 1,
-   "label": "Status",
-   "options": "\nOpen\nPartly Complete\nCompleted",
-   "read_only": 1
   },
   {
    "default": "Today",
@@ -129,15 +117,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "allow_on_submit": 1,
-   "default": "0",
-   "fieldname": "pending_quantity",
-   "fieldtype": "Float",
-   "label": "Pending Quantity",
-   "precision": "2",
-   "read_only": 1
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -172,7 +151,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-18 18:08:14.619701",
+ "modified": "2025-01-31 18:34:28.364802",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Clearance",

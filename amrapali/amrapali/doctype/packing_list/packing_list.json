@@ -22,12 +22,14 @@
   "section_break_zeua",
   "column_break_igwk",
   "delivered_items",
-  "sales_order_items",
   "amended_from",
   "section_break_citl",
   "total_bar_weight",
   "column_break_mokd",
-  "total_bars"
+  "total_bars",
+  "weight_as_per_sales_order",
+  "section_break_hwcx",
+  "sales_order_items"
  ],
  "fields": [
   {
@@ -172,12 +174,21 @@
    "fieldname": "sales_order_items",
    "fieldtype": "HTML",
    "label": "Sales Order Items"
+  },
+  {
+   "fieldname": "section_break_hwcx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "weight_as_per_sales_order",
+   "fieldtype": "Float",
+   "label": "Weight As Per Sales Order"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-22 18:27:15.765730",
+ "modified": "2025-02-03 12:02:25.858606",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Packing List",

@@ -1,8 +1,21 @@
+
 import frappe
+from num2words import num2words
+
+@frappe.whitelist()
+def number_to_words(number):
+    if number is None:
+        return ""
+    try:
+        return num2words(int(number)).capitalize()  # Capitalize the first letter
+    except ValueError:
+        return ""
+
+
 
 @frappe.whitelist(allow_guest=True)
 def get_users_with_role(user_name):
-    # Query the `User` table and join with `Has Role` to filter by role
+    # get user ro;es
     users = frappe.db.sql("""
         SELECT u.name
         FROM `tabUser` u

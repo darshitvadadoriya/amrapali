@@ -1,10 +1,7 @@
-
 async function send_bulk_mail(listview) {
 
-
     const selected_records = listview.get_checked_items();
-    
-    // Return false if no records are selected
+
     if (!selected_records.length) {
         frappe.msgprint(__('Please select at least one record'));
         return false;
@@ -31,18 +28,14 @@ async function send_bulk_mail(listview) {
 
 
             frappe.call({
-                method: 'amrapali.amrapali.override.api.api.send_bulk_mail_delivery_order',
+                method: 'amrapali.amrapali.override.api.release_order_mail.send_bulk_mail',
                 args: {
                     'list': selected_records,
-                    'doctype': listview.doctype,
-                    'recipient_doctype': 'Vaulting Agent',
-                    'recipient_field': 'custom_vaulting_agent'
                 },
                 callback: (res) => {
                     console.log(res, 'henjnfd')
                     // Unfreeze the screen
                     frappe.dom.unfreeze()
-                    
                     setTimeout(() => {
                         window.location.reload();
                     }, 4000);
@@ -63,14 +56,10 @@ async function send_bulk_mail(listview) {
 }
 
 
-
-
-frappe.listview_settings['Delivery Note'] = {
+frappe.listview_settings['Release Order'] = {
     refresh: function (listview) {
-       
         listview.page.add_inner_button("Send Bulk Mail", function () {
             send_bulk_mail(listview);
         });;
     },
 };
-

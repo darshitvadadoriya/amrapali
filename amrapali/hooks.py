@@ -24,6 +24,10 @@ app_license = "mit"
 # Includes in <head>
 # ------------------
 
+
+
+
+
 # include js, css files in header of desk.html
 # app_include_css = "/assets/amrapali/css/amrapali.css"
 # app_include_js = "/assets/amrapali/js/set_session_company.js"
@@ -57,9 +61,13 @@ doctype_js = {"Sales Invoice" : "public/js/sales_invoice.js",
               'Purchase Receipt': 'public/js/purchase_receipt.js',
                "*": "public/js/form_defaults.js"
               }
+
+
+
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 doctype_list_js = {"Sales Invoice" : "public/js/sales_invoice_list.js",
-                   "Delivery Note": "public/js/delivery_order_list.js"}
+                   "Delivery Note": "public/js/delivery_order_list.js",
+                   "Release Order": "public/js/release_order_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -173,6 +181,8 @@ doc_events = {
     "on_cancel":"amrapali.amrapali.override.api.delivery_order.on_cancel" 
   }
 }
+
+
 
 # Scheduled Tasks
 # ---------------

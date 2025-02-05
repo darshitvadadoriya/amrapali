@@ -15,5 +15,17 @@ frappe.ui.form.on('Purchase Receipt', {
                     }
             }
         })
+    },
+    refresh(frm){
+            if (frm.is_new()) {
+                $.each(frm.doc.items || [], function(index, row) {
+                    row.rejected_warehouse = '';  
+                });
+    
+                frm.refresh_field('items');
+            }
     }
 })
+
+
+

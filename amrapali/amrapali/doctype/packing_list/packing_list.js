@@ -12,7 +12,7 @@ frappe.ui.form.on("Packing List", {
         frm.get_docfield("delivered_items").allow_bulk_edit = 1; // set download and upload button for child table
     },
     refresh: function (frm) {
-
+        set_label(frm)
    
             frm.set_query("document", function() {
                     return {
@@ -45,10 +45,10 @@ frappe.ui.form.on("Packing List", {
                                         item_code_list = []
                                         // item_code array
                                         order_item_list.forEach(function(data,i){
-                                            console.log(data.item_code);
+                                            
                                             item_code_list.push(data.item_code)
                                         }) 
-                                        console.log(order_item_list);
+                                    
 
                                         set_order_table(order_item_list)
                                 }     
@@ -83,7 +83,7 @@ frappe.ui.form.on("Packing List", {
             cur_frm.set_value("doctype_list", "Sales Order")
             frm.set_df_property("document", 'label', "Sales Order");
             // frm.set_df_property("total_bar_weight_from", 'label', "Total Bar Weight From Delivery Note");
-            get_used_delivery(frm) // get used delivery note list
+            get_used_so(frm) // get used delivery note list
 
 
         }
@@ -98,32 +98,43 @@ frappe.ui.form.on("Packing List", {
 
         
       
-        if(frm.doc.doctype_list == "Sales Order")
-        {
-            if (frm.doc.doctype_list === "Sales Order") {
-                get_purchase_indent(frm); 
-            }
+        // if(frm.doc.doctype_list == "Sales Order")
+        // {
+        //     if (frm.doc.doctype_list === "Sales Order") {
+        //         get_purchase_indent(frm); 
+        //     }
             
-            frappe.db.get_value(doctype, frm.doc.document, 'customer')
+        //     frappe.db.get_value(doctype, frm.doc.document, 'customer')
+        //     .then(r => {
+        //         if (r && r.message) {
+        //             frm.set_value('customer', r.message.customer);
+        //         }
+        //     });
+        // }
+
+        if (frm.doc.doctype_list === "Sales Order") {
+            get_purchase_indent(frm); 
+            
+            frappe.db.get_value(frm.doc.doctype_list, frm.doc.document, ['customer', 'custom_pending_weight'])
             .then(r => {
                 if (r && r.message) {
                     frm.set_value('customer', r.message.customer);
+                    frm.set_value('weight_as_per_sales_order', r.message.custom_pending_weight);
                 }
             });
         }
+        
 
         if(frm.doc.doctype_list == "Purchase Receipt")
             {
                 frappe.db.get_value(doctype, frm.doc.document, 'supplier')
                 .then(r => {
-                    console.log(r);
                     if (r && r.message) {
                         frm.set_value('supplier', r.message.supplier);
                     }
                 });
                 frappe.db.get_value(doctype, frm.doc.document, 'custom_purchase_indent')
                 .then(r => {
-                    console.log(r);
                     if (r && r.message) {
                         frm.set_value('indent', r.message.custom_purchase_indent);
                     }
@@ -143,15 +154,13 @@ frappe.ui.form.on("Packing List", {
                 item_code_lst = []
                 var child_table
 
-                
-                console.log(r.message.items);
+            
                 if(frm.doc.doctype_list == "Sales Order")
                 {
                         var order_item_list = r.message.items
                         item_code_list = []
                         // item_code array
                         order_item_list.forEach(function(data,i){
-                            console.log(data.item_code);
                             item_code_list.push(data.item_code)
                         }) 
                         
@@ -179,7 +188,6 @@ frappe.ui.form.on("Packing List", {
                                     item_code_list: item_code_list
                                 },
                                 callback:function(r){
-                                    console.log(r);
                                     let indent_list = r.message
                                     frm.set_query("purchase_indent", function () {
 
@@ -211,7 +219,6 @@ frappe.ui.form.on("Packing List", {
                 }
                 $.each(items_data, function (index, data) {
                     item_code_lst.push(data.item_code)
-                    console.log(child_table);
                     // add record automatic in child table
                     frm.add_child(child_table, {
                         item_code: data.item_code,
@@ -225,6 +232,9 @@ frappe.ui.form.on("Packing List", {
 
             }
         })
+    },
+    before_save(frm){
+      set_label(frm)
     },
 
 
@@ -248,6 +258,7 @@ frappe.ui.form.on("Packing List", {
                 filters: {
                     'purchase_indent': ['in', indent_list],
                     'item_code':['in', item_code_list],
+                    'packing_list_created':0,
 
                 }
             },
@@ -315,7 +326,6 @@ function get_used_purchase(frm) {
     frappe.call({
         method: 'amrapali.amrapali.doctype.packing_list.packing_list.get_used_purchase',
         callback: function (r) {
-            console.log(r);
             // set filters for purchase doc link field
             frm.set_query("document", function () {
                 return {
@@ -333,24 +343,37 @@ function get_used_purchase(frm) {
 
 
 
-function get_used_delivery(frm) {
-    frappe.call({
-        method: 'amrapali.amrapali.doctype.packing_list.packing_list.get_used_delivery',
-        callback: function (r) {
-            console.log(r);
-            // set filters for Sales Order doc link field
-            frm.set_query("document", function () {
-                return {
-                    filters: [
-                        ["Sales Order", "name", "not in", r.message],
-                        ["Sales Order", "docstatus", "=", "1"]  // Filtering 'name' field in Sales Order doctype
-                    ]
-                };
-            });
+function get_used_so(frm) {
+
+    frm.set_query("document", function () {
+        return {
+            filters: [
+                ["Sales Order", "custom_pending_weight", "!=", 0],
+                ["Sales Order", "docstatus", "=", "1"]  
+            ]
+        };
+    });
+
+    // old setted filter of used sales order in packing list one time
+    // frappe.call({
+    //     method: 'amrapali.amrapali.doctype.packing_list.packing_list.get_used_so',
+    //     callback: function (r) {
+    //         console.log(r.message);
+    //         console.log("===========================================================");
+    //         // set filters for Sales Order doc link field
+    //         frm.set_query("document", function () {
+    //             return {
+    //                 filters: [
+    //                     ["Sales Order", "custom_pending_weight", "!=", 0],
+    //                     // ["Sales Order", "name", "not in", r.message],
+    //                     ["Sales Order", "docstatus", "=", "1"]  // Filtering 'name' field in Sales Order doctype
+    //                 ]
+    //             };
+    //         });
             
             
-        }
-    })
+    //     }
+    // })
 }
 
 function get_purchase_indent(frm) {
@@ -364,7 +387,7 @@ function get_purchase_indent(frm) {
         callback: function(res) {
             frm.set_value('purchase_indent',[])
             if (res && res.message) {
-                console.log('Sales Order:', res.message.purchase_indent);
+
                 if(res.message.purchase_indent) {
                     setTimeout(async () => {
                         frm.set_value('purchase_indent',[{
@@ -468,4 +491,20 @@ function set_order_table(data) {
 
     // Set the HTML field value
     cur_frm.fields_dict.sales_order_items.$wrapper.html(tableHTML);
+}
+
+
+
+function set_label(frm){
+    var ward_value = frm.doc.inout_ward
+    // if ward val is inward set purchase receipt
+    if (ward_value == 'In Ward') {
+        frm.set_df_property("document", 'label', "Purchase Receipt");
+
+    }
+    // if ward val is inward set delivery note
+    if (ward_value == 'Out Ward') {
+        frm.set_df_property("document", 'label', "Sales Order");
+      
+    }
 }

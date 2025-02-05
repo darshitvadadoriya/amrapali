@@ -1,0 +1,115 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-02-03 14:56:11.847383",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "packing_list_section",
+  "packing_list_signature_1",
+  "column_break_ohyg",
+  "packing_list_signature_2",
+  "delivery_order_section",
+  "delivery_order_signature_1",
+  "column_break_tuee",
+  "delivery_order_signature_2",
+  "release_order_section",
+  "release_order_signature_1",
+  "column_break_hppv",
+  "release_order_signature_2",
+  "sales_invoice_section",
+  "sales_invoice_signature"
+ ],
+ "fields": [
+  {
+   "fieldname": "packing_list_section",
+   "fieldtype": "Section Break",
+   "label": "Packing List"
+  },
+  {
+   "fieldname": "packing_list_signature_1",
+   "fieldtype": "Attach Image",
+   "label": "Packing List Signature 1"
+  },
+  {
+   "fieldname": "column_break_ohyg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "delivery_order_section",
+   "fieldtype": "Section Break",
+   "label": "Delivery Order"
+  },
+  {
+   "fieldname": "column_break_tuee",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "release_order_section",
+   "fieldtype": "Section Break",
+   "label": "Release Order"
+  },
+  {
+   "fieldname": "column_break_hppv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "delivery_order_signature_1",
+   "fieldtype": "Attach Image",
+   "label": "Delivery Order Signature 1"
+  },
+  {
+   "fieldname": "delivery_order_signature_2",
+   "fieldtype": "Attach Image",
+   "label": "Delivery Order Signature 2"
+  },
+  {
+   "fieldname": "release_order_signature_1",
+   "fieldtype": "Attach Image",
+   "label": "Release Order Signature 1"
+  },
+  {
+   "fieldname": "release_order_signature_2",
+   "fieldtype": "Attach Image",
+   "label": "Release Order Signature 2"
+  },
+  {
+   "fieldname": "sales_invoice_section",
+   "fieldtype": "Section Break",
+   "label": "Sales Invoice"
+  },
+  {
+   "fieldname": "sales_invoice_signature",
+   "fieldtype": "Attach Image",
+   "label": "Sales Invoice Signature"
+  },
+  {
+   "fieldname": "packing_list_signature_2",
+   "fieldtype": "Attach Image",
+   "label": "Packing List Signature 2"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-02-03 15:09:30.802502",
+ "modified_by": "Administrator",
+ "module": "amrapali",
+ "name": "Signature Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

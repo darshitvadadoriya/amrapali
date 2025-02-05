@@ -82,13 +82,12 @@
    "default": "0",
    "fieldname": "packing_list_created",
    "fieldtype": "Check",
-   "label": "Packing List Created",
-   "read_only": 1
+   "label": "Packing List Created"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-23 13:16:28.467038",
+ "modified": "2025-02-03 11:30:39.995555",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Bar Numbers",

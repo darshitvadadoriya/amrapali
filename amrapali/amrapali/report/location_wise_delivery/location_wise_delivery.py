@@ -45,7 +45,7 @@ def get_data(filters):
     
     # If both dates are present, use between condition
     if filters.get('from_date') and filters.get('to_date'):
-        parent_filter3s['posting_date'] = ['between', (filters.get('from_date'), filters.get('to_date'))]
+        parent_filters['posting_date'] = ['between', (filters.get('from_date'), filters.get('to_date'))]
 
     # Fetch parent data (Delivery Notes)
     parent_data = frappe.get_all(
