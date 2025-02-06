@@ -37,6 +37,7 @@
   {
    "fieldname": "company",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "in_list_view": 1,
    "label": "Company",
    "options": "Company",
@@ -109,6 +110,7 @@
   {
    "fieldname": "location",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "in_standard_filter": 1,
    "label": "Location",
    "options": "Warehouse"
@@ -165,7 +167,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-18 17:16:13.433819",
+ "modified": "2025-02-06 11:10:00.327956",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Issue",

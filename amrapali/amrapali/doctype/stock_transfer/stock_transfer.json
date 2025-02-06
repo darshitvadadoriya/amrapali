@@ -2,24 +2,26 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2024-11-12 16:46:10.785256",
+ "creation": "2025-02-06 17:51:10.623079",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "inout_ward",
-  "in_ward",
-  "custom_duty",
+  "purchase_indent",
   "company",
   "column_break_oyxc",
   "posting_date",
   "by_air__sea",
-  "location",
+  "from_location",
+  "to_location",
   "column_break_qxed",
   "air_way_bill_no",
   "remarks",
   "section_break_jjqg",
   "items",
+  "section_break_hzfd",
+  "total_quantity",
+  "column_break_tjtd",
   "amended_from"
  ],
  "fields": [
@@ -28,11 +30,22 @@
    "fieldtype": "Select",
    "hidden": 1,
    "label": "Series",
-   "options": "STOCK-TS-.YYYY.-"
+   "options": "ST-.MM.-.YYYY.-.#####"
+  },
+  {
+   "fetch_from": "stock_issue.purchase_indent",
+   "fieldname": "purchase_indent",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Purchase Indent",
+   "options": "Purchase Indent",
+   "reqd": 1
   },
   {
    "fieldname": "company",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "in_list_view": 1,
    "label": "Company",
    "options": "Company",
    "reqd": 1
@@ -45,35 +58,49 @@
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Posting Date",
    "reqd": 1
   },
   {
-   "fieldname": "remarks",
-   "fieldtype": "Small Text",
-   "label": "Remarks"
-  },
-  {
-   "fieldname": "custom_duty",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Custom Duty",
-   "reqd": 1
-  },
-  {
-   "fieldname": "air_way_bill_no",
-   "fieldtype": "Data",
-   "label": "Air Way Bill NO"
-  },
-  {
+   "fetch_from": "in_ward.by_air__sea",
    "fieldname": "by_air__sea",
    "fieldtype": "Select",
    "label": "By Air / Sea",
    "options": "\nAir\nSea"
   },
   {
+   "fieldname": "from_location",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "in_standard_filter": 1,
+   "label": "From Location",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "to_location",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "To Location",
+   "options": "Warehouse"
+  },
+  {
    "fieldname": "column_break_qxed",
    "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.by_air__sea == 'Air'",
+   "fetch_from": "in_ward.air_way_bill_no",
+   "fieldname": "air_way_bill_no",
+   "fieldtype": "Data",
+   "label": "Air Way Bill NO"
+  },
+  {
+   "fetch_from": "in_ward.remarks",
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
   },
   {
    "fieldname": "section_break_jjqg",
@@ -86,6 +113,20 @@
    "options": "Stock Transfer Item"
   },
   {
+   "fieldname": "section_break_hzfd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_tjtd",
+   "fieldtype": "Column Break"
+  },
+  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -96,30 +137,20 @@
    "search_index": 1
   },
   {
-   "fieldname": "inout_ward",
-   "fieldtype": "Select",
-   "label": "In/Out Ward",
-   "options": "In Ward\nOut Ward"
-  },
-  {
-   "fieldname": "in_ward",
+   "fieldname": "amended_from",
    "fieldtype": "Link",
-   "label": "In Ward",
-   "options": "Purchase InWard",
-   "reqd": 1
-  },
-  {
-   "depends_on": "eval:doc.inoutward == \"In Ward\"",
-   "fieldname": "location",
-   "fieldtype": "Link",
-   "label": "Location",
-   "options": "Warehouse"
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stock Transfer",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-25 12:18:42.477714",
+ "modified": "2025-02-06 17:51:39.165214",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Transfer",

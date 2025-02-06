@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"IUd3o_k91F\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Purchase</span>\",\"col\":12}},{\"id\":\"XY95A0Bo6L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Indent\",\"col\":3}},{\"id\":\"xe9Swj5yi-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Stock Clearance\",\"col\":3}},{\"id\":\"q9ljCFchSW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Stock Issue\",\"col\":3}},{\"id\":\"smqTjeuC_0\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Stock Receive\",\"col\":3}},{\"id\":\"OjF1oXkqQV\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Order\",\"col\":3}},{\"id\":\"Mt6b-IKHOe\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Receipt\",\"col\":3}},{\"id\":\"7Hz_xKBcMa\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Packing List\",\"col\":3}},{\"id\":\"a05vFNwu6D\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Bar Numbers\",\"col\":3}},{\"id\":\"7b-nSZJDm4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Invoice\",\"col\":3}},{\"id\":\"UGWW-tecO5\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"xOmJNttH2H\",\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":4}},{\"id\":\"BOPeV6lAeQ\",\"type\":\"card\",\"data\":{\"card_name\":\"Forms\",\"col\":4}},{\"id\":\"fCqys5rUTJ\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
+ "content": "[{\"id\":\"IUd3o_k91F\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Purchase</span>\",\"col\":12}},{\"id\":\"XY95A0Bo6L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Indent\",\"col\":3}},{\"id\":\"xe9Swj5yi-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Stock Clearance\",\"col\":3}},{\"id\":\"xckXqglmZE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Stock Transfer\",\"col\":3}},{\"id\":\"OjF1oXkqQV\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Order\",\"col\":3}},{\"id\":\"Mt6b-IKHOe\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Receipt\",\"col\":3}},{\"id\":\"7Hz_xKBcMa\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Packing List\",\"col\":3}},{\"id\":\"a05vFNwu6D\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Bar Numbers\",\"col\":3}},{\"id\":\"7b-nSZJDm4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Invoice\",\"col\":3}},{\"id\":\"UGWW-tecO5\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"xOmJNttH2H\",\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":4}},{\"id\":\"BOPeV6lAeQ\",\"type\":\"card\",\"data\":{\"card_name\":\"Forms\",\"col\":4}},{\"id\":\"fCqys5rUTJ\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
  "creation": "2024-12-27 17:38:44.420352",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,105 +13,6 @@
  "is_hidden": 0,
  "label": "Purchase",
  "links": [
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Forms",
-   "link_count": 9,
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Purchase Indent",
-   "link_count": 0,
-   "link_to": "Purchase Indent",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Stock Clearance",
-   "link_count": 0,
-   "link_to": "Stock Clearance",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Stock Issue",
-   "link_count": 0,
-   "link_to": "Stock Issue",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Stock Receive",
-   "link_count": 0,
-   "link_to": "Stock Receive",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Purchase Order",
-   "link_count": 0,
-   "link_to": "Purchase Order",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Purchase Receipt",
-   "link_count": 0,
-   "link_to": "Purchase Receipt",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Purchase Invoice",
-   "link_count": 0,
-   "link_to": "Purchase Invoice",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Packing List",
-   "link_count": 0,
-   "link_to": "Packing List",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Bar Numbers",
-   "link_count": 0,
-   "link_to": "Bar Numbers",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
   {
    "hidden": 0,
    "is_query_report": 0,
@@ -240,9 +141,98 @@
    "onboard": 0,
    "report_ref_doctype": "Purchase Order",
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Forms",
+   "link_count": 8,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Purchase Indent",
+   "link_count": 0,
+   "link_to": "Purchase Indent",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Stock Clearance",
+   "link_count": 0,
+   "link_to": "Stock Clearance",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Stock Transfer",
+   "link_count": 0,
+   "link_to": "Stock Transfer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Purchase Order",
+   "link_count": 0,
+   "link_to": "Purchase Order",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Purchase Receipt",
+   "link_count": 0,
+   "link_to": "Purchase Receipt",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Purchase Invoice",
+   "link_count": 0,
+   "link_to": "Purchase Invoice",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Packing List",
+   "link_count": 0,
+   "link_to": "Packing List",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bar Numbers",
+   "link_count": 0,
+   "link_to": "Bar Numbers",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2025-02-06 10:56:11.822988",
+ "modified": "2025-02-06 18:25:21.707433",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Purchase",
@@ -279,26 +269,18 @@
    "type": "DocType"
   },
   {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Stock Transfer",
+   "link_to": "Stock Transfer",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
    "color": "Green",
    "doc_view": "List",
    "label": "Stock Clearance",
    "link_to": "Stock Clearance",
-   "stats_filter": "[]",
-   "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Stock Issue",
-   "link_to": "Stock Issue",
-   "stats_filter": "[]",
-   "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Stock Receive",
-   "link_to": "Stock Receive",
    "stats_filter": "[]",
    "type": "DocType"
   },

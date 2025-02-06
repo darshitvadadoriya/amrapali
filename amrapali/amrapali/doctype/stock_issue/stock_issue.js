@@ -122,42 +122,8 @@ frappe.ui.form.on("Stock Issue", {
             frappe.throw(__("Your quantity is bigger than reference Stock clearance quantity. Pending Quantity is: <b>{0}</b>", [inward_pending_qty]));
         } 
 	},
-    // after_save(frm){
-    //     get_ward_details(frm)
-    // },
-    // on_submit(frm){
-    //     get_ward_details(frm)
-    //     stock_clearance = frm.doc.stock_clearance;
-
-    //     let pending_qty = inward_pending_qty - frm.doc.total_quantity
-    //         console.log(pending_qty);
-    //         console.log("TOtal QTY");
-    //         console.log(frm.doc.total_quantity);
-    //     var status = (inward_pending_qty == frm.doc.total_quantity) ? "Completed" : "Partly Complete";
-
-    //     frappe.db.set_value("Stock Clearance",stock_clearance,{"pending_quantity":pending_qty,"status":status})
-          
-    // }
 });
 
-
-
-
-// function get_ward_details(frm){
-//     stock_clearance = frm.doc.stock_clearance;
-
-//     frappe.call({
-//         method: "frappe.client.get",
-//         args: {
-//             doctype: "Stock Clearance",
-//             name: stock_clearance
-//         },
-//         callback: function(response) {
-//             var stock_clearance_doc = response.message;  
-//             inward_pending_qty = stock_clearance_doc.pending_quantity == 0 ? stock_clearance_doc.total_quantity : stock_clearance_doc.pending_quantity
-//         }
-//     })
-// }
 
 
 frappe.ui.form.on('Stock Transfer Item', {

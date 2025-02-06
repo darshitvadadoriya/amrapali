@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestStockTransfer(FrappeTestCase):
+class TestOutstandingEmailLog(FrappeTestCase):
 	pass
