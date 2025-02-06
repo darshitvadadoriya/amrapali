@@ -1,4 +1,5 @@
 import frappe
+from datetime import datetime
 from amrapali.amrapali.override.api.release_order_mail import get_dues_company_customer_wise
 from amrapali.amrapali.override.api.api import sendmail, get_recipients_hashmap
 
@@ -7,11 +8,22 @@ def send_outstanding_mails():
     # Get the dues hashmap
     dues_hashmap = get_dues_company_customer_wise()
 
-
-    
     # Get vaulting agents data
     customer_data = get_recipients_hashmap(recipient_doctype="Customer")
     
+    # Get today's date in the format yyyy-mm-dd
+    today_date = datetime.today().strftime('%Y-%m-%d')
+    
+    # Fetch already sent emails for today
+    sent_today = frappe.get_all(
+        'Outstanding Email Log',
+        filters={'date': today_date},
+        fields=['company', 'customer']
+    )
+    
+    # Create a hashmap to track customer-company pairs that were already emailed today
+    sent_pairs = {(entry['company'], entry['customer']) for entry in sent_today}
+
     # Lists to track sent emails and errors
     sent_emails = []
     error_emails = []
@@ -20,6 +32,10 @@ def send_outstanding_mails():
     for company, customer_dues in dues_hashmap.items():
         for customer, due in customer_dues.items():
             if due > 0:
+                # Skip if email already sent to this customer-company pair today
+                if (company, customer) in sent_pairs:
+                    continue
+
                 # Get recipient email
                 recipient_info = customer_data.get(customer)
                 if not recipient_info or not recipient_info.get("email_id"):
@@ -60,9 +76,22 @@ def send_outstanding_mails():
                         subject=subject,
                         message=html_message
                     )
+                    
+                    # Log the sent email in the Outstanding Email Log
+                    log_entry = frappe.get_doc({
+                        'doctype': 'Outstanding Email Log',
+                        'company': company,
+                        'customer': customer,
+                        'date': today_date
+                    })
+                    log_entry.insert()
+                    frappe.db.commit()  # Explicitly commit the transaction
+
+                    # Add to sent email list for tracking
                     sent_emails.append({"company": company, "customer": customer, "due": due})
                 
                 except Exception as e:
+                    frappe.logger().error(f"Error sending email or inserting log for {company} - {customer}: {str(e)}")
                     error_emails.append({
                         "company": company,
                         "customer": customer,
@@ -77,8 +106,6 @@ def send_outstanding_mails():
 
     # Redirect back to the current page
     frappe.local.response["type"] = "redirect"
-
-    # Redirects to the current path
     frappe.local.response["location"] = '/app'
 
     # Return summary

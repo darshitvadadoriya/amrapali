@@ -390,6 +390,21 @@ def sendmail(reference_doctype, reference_name, recipients, msg, subject,attachm
         timeout=300,
         **email_args
     )
+    
+     # log communication in form history
+    comm = frappe.get_doc({
+        "doctype": "Communication",
+        "subject": subject,
+        "content": msg,
+        "communication_type": "Communication",
+        "reference_doctype": reference_doctype,
+        "reference_name": reference_name,
+        "recipients": recipients,
+        "sender": user_mail or frappe.session.user,
+    })
+    comm.insert(ignore_permissions=True)
+    frappe.db.commit()
+    
 
     return f"Email queued to {recipients} with subject '{subject}'"
 

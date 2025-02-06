@@ -85,12 +85,6 @@ frappe.ui.form.on('Sales Invoice', {
                                
                             ],
 
-                            // 'msg': '',
-                            // 'subject': frm.doc.name,
-                            // 'attachments': true,
-                            // 'recipient_doctype': 'Customer',
-                            // 'recipient_field': 'customer',
-                            // 'email_field': 'email_id'
                             'msg': `Dear ${frm.doc.customer_name},\n\nPlease find attached the invoice ${frm.doc.name} for your recent purchase. If you have any questions or need assistance, feel free to reach out.\n\nThank you!`,
                             'subject': frm.doc.name,
                             'attachments': true,
