@@ -76,14 +76,16 @@
    "ignore_user_permissions": 1,
    "in_standard_filter": 1,
    "label": "From Location",
-   "options": "Warehouse"
+   "options": "Warehouse",
+   "reqd": 1
   },
   {
    "fieldname": "to_location",
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
    "label": "To Location",
-   "options": "Warehouse"
+   "options": "Warehouse",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_qxed",
@@ -150,7 +152,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-02-06 17:51:39.165214",
+ "modified": "2025-02-06 19:03:56.204269",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Stock Transfer",
