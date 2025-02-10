@@ -33,7 +33,7 @@ frappe.ui.form.on("Delivery Note", {
 
 
         // sending invoice to customer
-        frm.add_custom_button('Send mail', function () {
+        frm.add_custom_button('Send DO PDF', function () {
 
             frappe.confirm(
                 'Are you sure you want to proceed sending an e-mail?',

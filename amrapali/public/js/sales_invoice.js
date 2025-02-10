@@ -61,7 +61,7 @@ frappe.ui.form.on('Sales Invoice', {
     onload: function (frm) {
 
         // sending invoice to customer
-        frm.add_custom_button('Send mail', function () {
+        frm.add_custom_button('Send Invoice', function () {
 
             frappe.confirm(
                 'Are you sure you want to proceed sending an e-mail?',
@@ -95,11 +95,15 @@ frappe.ui.form.on('Sales Invoice', {
                         },
                         callback: (res) => {
                             console.log(res, 'henjnfd')
-                            // Unfreeze the screen
+                            // unfreez the screen
                             frappe.dom.unfreeze()
         
-                            // Show success alert and refresh list view after completion
+                            // success alere message
                             frappe.show_alert({ message: "Email Successfully Sent!", indicator: "green" });
+                        },
+                        error: (err) => {
+                            frappe.dom.unfreeze();
+                           
                         }
                     })
         
@@ -339,11 +343,9 @@ function update_weight(frm, child) {
     let qty = child.qty || 0;
 
     if (child.weight_uom == 'Kg') {
-        child.custom_total_item_weight = custom_item_weight * 1000 * qty; // Convert Kg to Gram and multiply by qty
-        console.log(child.custom_total_item_weight);
+        child.custom_total_item_weight = custom_item_weight * 1000 * qty; // convert kg to gram and multiply by qty
     } else if (child.weight_uom == 'Gram') {
-        child.custom_total_item_weight = custom_item_weight * qty; // Multiply weight by qty if already in Gram
-        console.log(child.custom_total_item_weight);
+        child.custom_total_item_weight = custom_item_weight * qty; // multiply weight by qty if already in gram
     }
 
     frm.refresh_field('items');

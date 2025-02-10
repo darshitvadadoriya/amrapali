@@ -58,7 +58,7 @@ async function send_bulk_mail(listview) {
 
 frappe.listview_settings['Release Order'] = {
     refresh: function (listview) {
-        listview.page.add_inner_button("Send Bulk Mail", function () {
+        listview.page.add_inner_button("Send Bulk Release Order", function () {
             send_bulk_mail(listview);
         });;
     },

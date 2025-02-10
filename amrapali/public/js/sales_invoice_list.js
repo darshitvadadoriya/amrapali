@@ -77,7 +77,7 @@ frappe.listview_settings['Sales Invoice'] = {
                     console.log("Action not perform");
                 })
         });;
-        listview.page.add_inner_button("Send Bulk Mail", function () {
+        listview.page.add_inner_button("Send Bulk Invoices", function () {
             send_bulk_mail(listview);
         });;
     },
