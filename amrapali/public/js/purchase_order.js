@@ -228,6 +228,10 @@ frappe.ui.form.on('Purchase Order Item', {
         convert_inr_rate(frm, cdt, cdn);
         frm.refresh_field("items")
     },
+    custom_exchange_rate:function(frm,cdt,cdn){
+        convert_inr_rate(frm, cdt, cdn);
+        frm.refresh_field("items")  
+    },
     custom_premium:function(frm,cdt,cdn){
         calculate_internation_rate(frm, cdt, cdn);
         convert_inr_rate(frm, cdt, cdn);
