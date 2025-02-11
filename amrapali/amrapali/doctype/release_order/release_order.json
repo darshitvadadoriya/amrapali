@@ -67,7 +67,8 @@
   "in_words",
   "disable_rounded_total",
   "sec_tax_breakup",
-  "other_charges_calculation"
+  "other_charges_calculation",
+  "amended_from"
  ],
  "fields": [
   {
@@ -545,19 +546,28 @@
    "fieldname": "custom_reference_sales_invoice",
    "fieldtype": "Link",
    "label": "Reference Sales Invoice",
-   "options": "Sales Invoice",
-   "read_only": 1
+   "options": "Sales Invoice"
   },
   {
    "fieldname": "remarks",
    "fieldtype": "Small Text",
    "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Release Order",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "icon": "fa fa-truck",
  "is_submittable": 1,
  "links": [],
- "modified": "2025-02-07 18:49:52.974869",
+ "modified": "2025-02-11 12:18:05.976822",
  "modified_by": "Administrator",
  "module": "amrapali",
  "name": "Release Order",

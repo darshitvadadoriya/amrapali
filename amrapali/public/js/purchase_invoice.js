@@ -5,7 +5,9 @@ var exchangerate;
 
 frappe.ui.form.on('Purchase Invoice', {
     onload:async function(frm){
-       
+        // remove unsualbutton
+        remove_custom_buttons(frm)
+
        if(frm.is_new()){
         exchangerate = await exchange_rate()
         console.log(exchangerate);
@@ -14,6 +16,10 @@ frappe.ui.form.on('Purchase Invoice', {
             })
        }
         
+    },
+    refresh:function(frm){
+        // remove unsualbutton
+        remove_custom_buttons(frm)
     },
     validate(frm) {
         get_duty_account(frm);
@@ -175,4 +181,20 @@ async function exchange_rate() {
         });
         return response.message; 
     
+}
+
+
+
+
+function remove_custom_buttons(frm){
+    // remove custom buttons
+
+    setTimeout(() => {
+    
+       frm.remove_custom_button('Block Invoice', 'Create');
+       frm.remove_custom_button('Return / Debit Note', 'Create');
+       frm.remove_custom_button('Payment Request', 'Create');
+       
+   }, 100);
+
 }

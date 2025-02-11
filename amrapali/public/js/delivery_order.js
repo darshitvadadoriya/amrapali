@@ -2,6 +2,7 @@ frappe.ui.form.on("Delivery Note", {
     refresh(frm){
        setTimeout(() => {
         frm.remove_custom_button('Shipment', 'Create');
+        frm.remove_custom_button('Sales Return', 'Create');
         frm.remove_custom_button('Installation Note', 'Create');
         frm.remove_custom_button('Delivery Trip', 'Create');
         frm.remove_custom_button('Sales Invoice', 'Create');
@@ -162,11 +163,9 @@ function update_weight(frm, child) {
     let qty = child.qty || 0;
 
     if (child.weight_uom == 'Kg') {
-        child.custom_total_item_weight = custom_item_weight * 1000 * qty; // Convert Kg to Gram and multiply by qty
-        console.log(child.custom_total_item_weight);
+        child.custom_total_item_weight = custom_item_weight * 1000 * qty; 
     } else if (child.weight_uom == 'Gram') {
-        child.custom_total_item_weight = custom_item_weight * qty; // Multiply weight by qty if already in Gram
-        console.log(child.custom_total_item_weight);
+        child.custom_total_item_weight = custom_item_weight * qty; 
     }
 
     frm.refresh_field('items');
@@ -180,4 +179,6 @@ function calculate_total_weight(frm) {
     });
     frm.set_value('custom_total_weight', total_weight/1000);
 }
+
+
 

@@ -9,17 +9,8 @@ frappe.ui.form.on('Sales Order', {
     },
 
     onload:async function(frm){
-
-        // remove custom buttons
-        setTimeout(() => {
-            frm.remove_custom_button('Pick List', 'Create');
-            frm.remove_custom_button('Work Order', 'Create');
-            frm.remove_custom_button('Material Request', 'Create');
-            frm.remove_custom_button('Request for Raw Materials', 'Create');
-            frm.remove_custom_button('Purchase Order', 'Create');
-            frm.remove_custom_button('Project', 'Create');
-        }, 100);
-
+        // remove unusual buttons from form
+        remove_custom_buttons(frm)
         
 
 
@@ -37,6 +28,13 @@ frappe.ui.form.on('Sales Order', {
          
         
         }
+     },
+     refresh:function(frm){
+        // remove unusual buttons from form
+        remove_custom_buttons(frm)
+
+        // hide connectiona
+        hide_connection()
      }
 });
 
@@ -144,37 +142,6 @@ function set_exchange_rate(row) {
 
 
 
-// // Update weight and calculate total weight
-// function update_weight(frm, child) {
-//     // Get the item weight from the Item master (assuming the weight field exists)
-//     frappe.db.get_value('Item', child.item_code, 'weight').then(res => {
-//         let weight = res.message.weight || 0;
-//         let qty = child.qty || 0;
-        
-//         if (child.uom === 'KG') {
-//             // If UOM is KG, weight is in KG
-//             child.weight = weight * qty;
-//         } else if (child.uom === 'Gram') {
-//             // If UOM is Gram, convert weight from KG to Gram
-//             child.weight = (weight * 1000) * qty; // Convert KG to Gram
-//         }
-        
-//         frm.refresh_field('items');  // Refresh the item table to show updated weight
-//         calculate_total_weight(frm); // Recalculate total weight on the Sales Order level
-//     });
-// }
-
-// function calculate_total_weight(frm) {
-//     let total_weight = 0;
-//     frm.doc.items.forEach(item => {
-//         total_weight += item.weight || 0;
-//     });
-//     frm.set_value('total_net_weight', total_weight);  // Set total weight on Sales Order level
-// }
-
-
-
-
 // calculate weight
 function update_weight(frm, child) {
     let custom_item_weight = child.custom_item_weight || 0;
@@ -203,3 +170,29 @@ function calculate_total_weight(frm) {
     frm.set_value('custom_pending_weight', total_weight/1000);
 }
 
+
+function remove_custom_buttons(frm){
+     // remove custom buttons
+
+     console.log("refresh is work and load also......");
+     setTimeout(() => {
+        frm.remove_custom_button('Pick List', 'Create');
+        frm.remove_custom_button('Work Order', 'Create');
+        frm.remove_custom_button('Material Request', 'Create');
+        frm.remove_custom_button('Request for Raw Materials', 'Create');
+        frm.remove_custom_button('Purchase Order', 'Create');
+        frm.remove_custom_button('Project', 'Create');
+    }, 100);
+
+}
+
+
+// hide connections
+function hide_connection(){
+    setTimeout(() => {
+        $("[data-doctype='Pick List']").hide();
+        $("[data-doctype='Maintenance Visit']").hide();
+        $("[data-doctype='Material Request']").hide();
+        $("[data-doctype='Purchase Order']").hide();
+    }, 200);
+}

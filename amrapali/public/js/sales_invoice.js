@@ -126,6 +126,7 @@ frappe.ui.form.on('Sales Invoice', {
         // remove custom buttons
         setTimeout(() => {
             frm.remove_custom_button('Maintenance Schedule', 'Create');
+            frm.remove_custom_button('Return / Credit Note', 'Create');
             frm.remove_custom_button('Dunning', 'Create');
             frm.remove_custom_button('Invoice Discounting', 'Create');
             frm.remove_custom_button('Fetch Timesheet');
